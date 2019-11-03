@@ -13,12 +13,22 @@ Its free for everyone <br/>
 ## Kubernetes multinode setup 
 ###  we have 4 machine , 1 master and 3 worker
 ## Pre-requisite 
-<ul>
-  <li> Disable the Selinux on all the nodes </li>
-  ```
+
+### Disable selinux in all the nodes
+
+```
   [root@master ~]# setenforce  0
   [root@master ~]# sed -i 's/SELINUX=enforcing/SELINUX=disabled/'  /etc/selinux/config
-  ```
   
-</ul>
-
+ ```
+ 
+ ### Enable the kernel bridge for every system
+ ```
+ [root@master ~]# modprobe br_netfilter
+ [root@master ~]# echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+ ```
+ ### Disable the swap 
+ ```
+ [root@master ~]# swapoff  -a
+ ```
+ ### 
