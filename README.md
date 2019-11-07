@@ -126,4 +126,18 @@ items:
 ```
 <b> So above you can replcae  -o yaml with -o json to get json output format </b>
 
+####  Exporting  running pods into a file 
 
+```
+[root@station132 k8s]# kubectl get  pods -o yaml  --export    >samplee.yml
+```
+
+####  Describing  pods 
+
+```
+[root@station132 k8s]# kubectl describe  pods  ashusamplepod 
+```
+
+##  Kubernetes CheetSheet links for more commands 
+cheetsheet :-  (kubernetes.io_links)[https://kubernetes.io/docs/reference/kubectl/cheatsheet/]
+  
