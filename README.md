@@ -139,5 +139,5 @@ items:
 ```
 
 ##  Kubernetes CheetSheet links for more commands 
-cheetsheet :-  (kubernetes.io_links)[https://kubernetes.io/docs/reference/kubectl/cheatsheet/]
+cheetsheet : (kubernetes_links)[https://kubernetes.io/docs/reference/kubectl/cheatsheet/] <br/>
   
