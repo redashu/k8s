@@ -72,3 +72,80 @@ node3.example.com    Ready    <none>   9m3s    v1.12.2
 ```
 
 Good luck guys !!
+
+## Tips for kubernetres 
+
+###  Kubectl  bashcompletion for autotab working 
+```
+echo  'source <(kubectl completion bash)'  >>$HOME/.bashrc 
+```
+
+####  NOte:  logout and login your current session or use source command 
+
+## Deployments 
+This is the way generally people use to deploy application in production grade <br/>
+It can container single or more pods & easy to scale and upgrade <br/>
+###  Deploy Deployments from YAML 
+```
+[root@station132 k8s]# kubectl  apply  -f  ashudep1.yml 
+deployment.extensions/ashudep1 created
+
+[root@station132 k8s]# kubectl  get  deployments
+NAME       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+ashudep1   2         2         2            2           7s
+```
+
+### TO show more details like lables of kubernetes containers
+
+```
+[root@station132 k8s]# kubectl  get deployments.  -o wide
+NAME       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS   IMAGES   SELECTOR
+ashudep1   2         2         2            2           3m2s   c1           nginx    app=ashudep1
+```
+
+### Describing  deployments 
+
+```
+[root@station132 k8s]# kubectl  describe deployments. ashudep1 
+Name:                   ashudep1
+Namespace:              default
+CreationTimestamp:      Thu, 07 Nov 2019 18:35:46 -0500
+Labels:                 app=ashudep1
+Annotations:            deployment.kubernetes.io/revision: 1
+                        kubectl.kubernetes.io/last-applied-configuration:
+                          {"apiVersion":"extensions/v1beta1","kind":"Deployment","metadata":{"annotations":{},"name":"ashudep1","namespace":"default"},"spec":{"repl...
+
+```
+
+### Create Deployments using command line 
+
+```
+[root@station132 k8s]# kubectl run mydep  --image=nginx  --port=80 --replicas=3
+kubectl run --generator=deployment/apps.v1beta1 is DEPRECATED and will be removed in a future version. Use kubectl create instead.
+deployment.apps/mydep created
+ 
+[root@station132 k8s]# kubectl  get deployments.
+NAME       DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+ashudep1   2         2         2            2           11m
+mydep      3         3         3            3           11s
+
+```
+
+### Note: in backend replicasets is also created that is actually take care to replication factor of pods
+
+```
+[root@station132 k8s]# kubectl  get replicasets.
+NAME                  DESIRED   CURRENT   READY   AGE
+ashudep1-64875ff59d   2         2         2       12m
+mydep-7546bf9d89      3         3         3       77s
+
+[root@station132 k8s]# kubectl  get replicasets.extensions 
+NAME                  DESIRED   CURRENT   READY   AGE
+ashudep1-64875ff59d   2         2         2       12m
+mydep-7546bf9d89      3         3         3       85s
+
+[root@station132 k8s]# kubectl  get replicasets.apps 
+NAME                  DESIRED   CURRENT   READY   AGE
+ashudep1-64875ff59d   2         2         2       12m
+mydep-7546bf9d89      3         3         3       88s
+```

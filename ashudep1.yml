@@ -1,0 +1,20 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: ashudep1
+
+spec:
+ replicas: 2    #  this will maintain replication  number of pods
+ template:   #  this template will be used as settting of pods 
+  metadata:
+   labels:
+    app: ashudep1
+
+  spec:           # specification about containers from docker image 
+   containers:
+    - name: c1
+      image: nginx
+      ports:
+       - containerPort: 80
+      imagePullPolicy: IfNotPresent
