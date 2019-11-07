@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ashusamplepod23
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: IfNotPresent
+    name: c1
+    ports:
+    - containerPort: 80
+      
+  restartPolicy: Always
+  nodeName: node2.example.com

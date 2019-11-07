@@ -72,3 +72,58 @@ node3.example.com    Ready    <none>   9m3s    v1.12.2
 ```
 
 Good luck guys !!
+
+##  PODS 
+
+### To check existing pods in default namespace 
+```
+[root@station132 k8s]# kubectl get  pods
+No resources found.
+```
+
+###  to create a new pod from yaml file 
+```
+[root@station132 k8s]# kubectl create -f  sample.yml 
+pod/ashusamplepod created
+
+[root@station132 k8s]# kubectl get  pods
+NAME            READY   STATUS    RESTARTS   AGE
+ashusamplepod   1/1     Running   0          4s
+
+```
+
+###  To check more details about pod
+
+####  details about pods with their respective nodes 
+```
+[root@station132 k8s]# kubectl get  pods -o wide 
+NAME            READY   STATUS    RESTARTS   AGE    IP               NODE                NOMINATED NODE
+ashusamplepod   1/1     Running   0          104s   192.168.11.125   node1.example.com   <none>
+```
+
+####  To check only pods name 
+```
+[root@station132 k8s]# kubectl get  pods -o name
+pod/ashusamplepod
+
+```
+
+####  Pods output in yaml or  json format 
+```
+[root@station132 k8s]# kubectl get  pods -o yaml 
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      cni.projectcalico.org/podIP: 192.168.11.125/32
+    creationTimestamp: 2019-11-07T23:15:11Z
+    name: ashusamplepod
+    namespace: default
+    resourceVersion: "42534"
+-----more
+```
+<b> So above you can replcae  -o yaml with -o json to get json output format </b>
+
+
