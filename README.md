@@ -78,11 +78,12 @@ Good luck guys !!
 This component created  to access application from inside and outside cluster  <br/>
 ### Their are 3 major types of services in Kubernetes 
 <ul>
-	<li> ClusterIP </li>   -- to access internal for kubernetes 
-	<li> LoadBalancer </li>
-	<li> NodePort </li>
+	<li> ClusterIP :- To access internal from nodes </li>  
+	<li> LoadBalancer  :- To balance load in case of multiPod apps </li>
+	<li> NodePort :-  To access application from outside </li>
 
 </ul>
 
 
-
+###  A visual look to serivce 
+<img src="service.png">
