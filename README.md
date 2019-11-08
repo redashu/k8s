@@ -72,3 +72,17 @@ node3.example.com    Ready    <none>   9m3s    v1.12.2
 ```
 
 Good luck guys !!
+
+##  Now time for Kubernetes Services  
+
+This component created  to access application from inside and outside cluster  <br/>
+### Their are 3 major types of services in Kubernetes 
+<ul>
+	<li> ClusterIP </li>   -- to access internal for kubernetes 
+	<li> LoadBalancer </li>
+	<li> NodePort </li>
+
+</ul>
+
+
+
