@@ -87,3 +87,39 @@ This component created  to access application from inside and outside cluster  <
 
 ###  A visual look to serivce 
 <img src="service1.png">
+
+##  Deploy service from a yaml file
+```
+[root@station132 k8s]# kubectl create -f  sampleservice.yml 
+service/servicefirst1 created
+
+[root@station132 k8s]# kubectl  get  service
+NAME            TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP   10.96.0.1     <none>        443/TCP        4d12h
+servicefirst1   NodePort    10.99.68.91   <none>        80:30008/TCP   8s
+
+[root@station132 k8s]# kubectl  get  svc
+NAME            TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP   10.96.0.1     <none>        443/TCP        4d12h
+servicefirst1   NodePort    10.99.68.91   <none>        80:30008/TCP   11s
+
+```
+
+###  creating  service from command line 
+```
+[root@station132 k8s]# kubectl  create  service   nodeport   my --tcp=80
+service/my created
+
+[root@station132 k8s]# kubectl get svc
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP   10.96.0.1      <none>        443/TCP        4d12h
+my              NodePort    10.99.104.65   <none>        80:31050/TCP   6s
+servicefirst1   NodePort    10.99.68.91    <none>        80:30008/TCP   5m3s
+
+[root@station132 k8s]# kubectl get svc -o wide
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE     SELECTOR
+kubernetes      ClusterIP   10.96.0.1      <none>        443/TCP        4d12h   <none>
+my              NodePort    10.99.104.65   <none>        80:31050/TCP   26s     app=my
+servicefirst1   NodePort    10.99.68.91    <none>        80:30008/TCP   5m23s   name=myapp
+```
+
