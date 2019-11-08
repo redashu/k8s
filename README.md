@@ -72,3 +72,84 @@ node3.example.com    Ready    <none>   9m3s    v1.12.2
 ```
 
 Good luck guys !!
+
+## Namespace in Kubernetes 
+This entity is basically for making isolation for different users and services in kubernetes <br/>
+different users can create their seperate pods, deployment , services and many those are isolated from each other <br/>
+
+##  Namespace facts :
+There are 3 namespace which are by default created 
+<ul>
+	<li> default </li>
+	<li> kube-system  </li>
+	<li> kube-public </li>
+<ul/>
+
+```
+[ec2-user@ip-172-31-89-188 ~]$ kubectl get namespaces 
+NAME              STATUS   AGE
+default           Active   96m
+kube-public       Active   96m
+kube-system       Active   96m
+```
+
+###  Not everything is inside namespaces like  <i> namespaces  </i>  
+####  To check list of  api-resources which are present in namespace and which are not
+```
+[ec2-user@ip-172-31-89-188 ~]$ kubectl api-resources 
+NAME                              SHORTNAMES   APIGROUP                       NAMESPACED   KIND
+bindings                                                                      true         Binding
+componentstatuses                 cs                                          false        ComponentStatus
+configmaps                        cm                                          true         ConfigMap
+endpoints                         ep                                          true         Endpoints
+events                            ev                                          true         Event
+limitranges                       limits                                      true         LimitRange
+namespaces                        ns                                          false        Namespace
+nodes                             no                                          false        Node
+persistentvolumeclaims            pvc                                         true         PersistentVolumeClaim
+persistentvolumes                 pv                                          false        PersistentVolume
+pods                              po                                          true         Pod
+```
+
+###  By default we create all resources in default namespace as a kubernetes client  
+
+
+## Creating namespaces 
+###  using  yaml file  
+```
+[ec2-user@ip-172-31-89-188 ~]$ kubectl create  -f  creans.yml 
+namespace/myspace created
+[ec2-user@ip-172-31-89-188 ~]$ kubectl get  namespaces 
+NAME              STATUS   AGE
+default           Active   114m
+kube-node-lease   Active   114m
+kube-public       Active   114m
+kube-system       Active   114m
+myspace           Active   6s
+```
+
+###  creating namespace using command line 
+```
+[ec2-user@ip-172-31-89-188 ~]$ kubectl create   namespace  cmdname
+namespace/cmdname created
+[ec2-user@ip-172-31-89-188 ~]$ kubectl get ns
+NAME              STATUS   AGE
+cmdname           Active   5s
+default           Active   116m
+kube-node-lease   Active   116m
+kube-public       Active   116m
+kube-system       Active   116m
+myspace           Active   100s
+
+```
+
+###  Changing namespace permanently 
+```
+kubectl config set-context   $(kubectl  config  current-context)   --namespace=myspace 
+```
+
+## Namespcae and DNS
+
+whenever we create a service  it creates a corresponding DNS entry like <b> servicename.namespace.svc.cluster.local </b> <br/>
+here  <b> cluster.local  </b>  is the default domain name  which means now pods can access each other by their service name
+under same namespace 
