@@ -86,4 +86,4 @@ This component created  to access application from inside and outside cluster  <
 
 
 ###  A visual look to serivce 
-<img src="service.png">
+<img src="service1.png">
