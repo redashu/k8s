@@ -72,3 +72,47 @@ node3.example.com    Ready    <none>   9m3s    v1.12.2
 ```
 
 Good luck guys !!
+
+## Resource Management
+### Resource binding is the one of the most core need of resource management in kubernetes to restrict the
+resources as per need
+### Resource binding can be done in many components 
+<ul>
+	<li>  Pods  </li>
+	<li>  Deployments  </li>
+	<li>  Namespaces   </li>
+</ul>
+
+###  General  resource for pods and deployments 
+<ul>
+	<li> RAM   </li>
+	<li> CPU   </li>
+	<li>  Disk  </li>
+
+</ul>
+
+<b>  RAM </b> :-  By default  256Mi RAM is request by pods and default limit is  512Mi
+<b>  CPU </b> :-  By default  0.5 CPU  is request by pods  and default limit is 1 vCPU 
+
+### Understanding  CPU  unit  
+as above discussed  cpu is   0.5  cpu are requested   <br/>
+so to understand  0.1   cpu  means  -- 100m  where m is mili we can go to <b> 1m  </b> that is the minimum  value for  pods not below to that <br/>
+ 1 cpu  means  -- 1 vCPU in aws or  1 GCP core or  1 azure core or 1 Hyperthread  <br/>
+For RAM  we can refer  Mi or M both  </br>
+
+<b>  CPU limit can't be exceeded but Memory limit can be exceeded by pods but it will use it consistently then pod will be terminated </b>
+
+## If we only define limit but not request 
+```
+
+[root@station132 k8s]# kubectl create -f  pod_limit_only.yml
+
+[root@station132 k8s]# kubectl get pods
+NAME   READY   STATUS     RESTARTS   AGE
+pod1   1/1     Running    0          30m
+pod2   1/1     Running    0          20m
+pod3   0/1     OutOfcpu   0          97s
+```
+### So it will use limit as request  values not the default settings 
+
+## If we define the request only it will get those resources  

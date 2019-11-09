@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: pod4
+
+spec:
+ restartPolicy: Always
+ containers:
+  - name: c2
+    image: nginx
+    ports:
+     - containerPort: 80
+    imagePullPolicy: IfNotPresent
+    resources:
+     requests:
+      memory: 800Mi
+      cpu: 0.2  #  means 100*2 --> 200m --- 200 mili cores 
+

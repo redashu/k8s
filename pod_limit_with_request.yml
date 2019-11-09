@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: pod2
+ labels:
+  key1: v1
+  key2: v2
+
+spec:
+ nodeName: node3.example.com
+ restartPolicy: Always
+ containers:
+  - name: c2
+    image: nginx
+    ports:
+     - containerPort: 80
+    imagePullPolicy: IfNotPresent
+    resources:
+     requests:
+      memory: 300Mi
+      cpu: 0.6        # here .1 means 100m 
+     limits:
+      memory: 800Mi
+      cpu: 2
+

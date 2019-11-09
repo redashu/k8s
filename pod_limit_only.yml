@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: pod3
+ labels:
+  key1: v1
+  key2: v2
+
+spec:
+ restartPolicy: Always
+ containers:
+  - name: c2
+    image: nginx
+    ports:
+     - containerPort: 80
+    imagePullPolicy: IfNotPresent
+    resources:
+     limits:
+      memory: 800Mi
+      cpu: 2
+
