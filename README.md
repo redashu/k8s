@@ -91,8 +91,8 @@ resources as per need
 
 </ul>
 
-<b>  RAM </b> :-  By default  256Mi RAM is request by pods and default limit is  512Mi
-<b>  CPU </b> :-  By default  0.5 CPU  is request by pods  and default limit is 1 vCPU 
+<b>  RAM </b> :-  By default  256Mi RAM is request by pods and default limit is  512Mi  </br>
+<b>  CPU </b> :-  By default  0.5 CPU  is request by pods  and default limit is 1 vCPU  <br/>
 
 ### Understanding  CPU  unit  
 as above discussed  cpu is   0.5  cpu are requested   <br/>
@@ -101,6 +101,7 @@ so to understand  0.1   cpu  means  -- 100m  where m is mili we can go to <b> 1m
 For RAM  we can refer  Mi or M both  </br>
 
 <b>  CPU limit can't be exceeded but Memory limit can be exceeded by pods but it will use it consistently then pod will be terminated </b>
+<br/>
 
 ## If we only define limit but not request 
 ```
@@ -116,3 +117,24 @@ pod3   0/1     OutOfcpu   0          97s
 ### So it will use limit as request  values not the default settings 
 
 ## If we define the request only it will get those resources  
+
+## Setting  default limit to namespaces 
+** To set the default  range in namespace we can use 
+LimitRanges api-resource type in kubernetes **
+
+* we are deviding this check into 3 steps  * 
+- create a namespace 
+- create a LimitRange 
+- create a pod and check 
+
+```
+[root@station132 k8s]# kubectl create  namespace  limitresource
+namespace/limitresource created
+[root@station132 k8s]# kubectl get namespaces 
+NAME               STATUS   AGE
+default            Active   6d1h
+kube-public        Active   6d1h
+kube-system        Active   6d1h
+limitresource      Active   5s
+```
+
