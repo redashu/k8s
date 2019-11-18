@@ -151,5 +151,11 @@ kubectl config set-context   $(kubectl  config  current-context)   --namespace=m
 ## Namespcae and DNS
 
 whenever we create a service  it creates a corresponding DNS entry like <b> servicename.namespace.svc.cluster.local </b> <br/>
-here  <b> cluster.local  </b>  is the default domain name  which means now pods can access each other by their service name
-under same namespace 
+here  <b> cluster.local  </b>  is the default domain name  which means now pods can access each other by their  name under same namespace 
+
+### a visual look is their 
+<img  src="ns_service.png">
+
+
+
+
