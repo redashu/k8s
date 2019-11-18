@@ -157,5 +157,17 @@ here  <b> cluster.local  </b>  is the default domain name  which means now pods 
 <img  src="ns_service.png">
 
 
+##  User management in Kubernetes 
+
+###  There are two types of users are there in kubernetes 
+<ul>
+	<li> Service account  </li>
+	<li> Managed/Normal  account  </li>
+</ul>
+
+###  Service account  managed by Kubernetes it self 
+###  Normal user does not supported by Kubernetes api calls
+ <i>  We can create external users to manage kubernetes cluster service  </i>
+
 
 
