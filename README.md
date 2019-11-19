@@ -170,4 +170,27 @@ here  <b> cluster.local  </b>  is the default domain name  which means now pods 
  <i>  We can create external users to manage kubernetes cluster service  </i>
 
 
+## Kubernetes support couple of authentication methods like SAML , AD ,Kerberos , openId
 
+###  Step for Creating  users with restricted namespace access manually in Kubernetes 
+<ol>
+	<li> Create a Namespace </li>
+	<li> Create a private key  </li>
+	<li> Create a CSR for the same key </li>
+	<li> Create a CRT for same CSR </li>
+	<li> Set credentails for user </li>
+	<li> Get Name of current cluster  </li>
+	<li> Create / set context for same user   </li>
+	<li> Create a Role for managing deployments </li>
+	<li> Create a role binding for same users  </li>
+	<li> set config to use   </li>
+
+</ol>
+
+
+## Steps  -> 
+
+<b> Create namespace  </b>
+```
+ kubectl create namespace  test
+``
