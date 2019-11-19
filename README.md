@@ -262,4 +262,29 @@ Switched to context "ec2user-context".
 
 ```
 
+## Now time for create a custom  config file 
+```
+[ec2-user@ip-172-31-89-188 .kube]$ kubectl config view 
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /home/ec2-user/.certs/ca.crt
+    server: https://172.31.89.188:6443
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    namespace: test
+    user: ec2user
+  name: ec2user-context
+current-context: ec2user-context
+kind: Config
+preferences: {}
+users:
+- name: ec2user
+  user:
+    client-certificate: /home/ec2-user/.certs/ec2user.crt
+    client-key: /home/ec2-user/.certs/ec2user.key
+```
 
+### as per above output we can copy the file and save in .config file to use it 
