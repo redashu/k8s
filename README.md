@@ -288,3 +288,10 @@ users:
 ```
 
 ### as per above output we can copy the file and save in .config file to use it 
+
+## tip
+
+```
+[ec2-user@ip-172-31-89-188 .kube]$ kubectl auth  can-i create service
+no
+```
