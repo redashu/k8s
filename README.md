@@ -193,4 +193,73 @@ here  <b> cluster.local  </b>  is the default domain name  which means now pods 
 <b> Create namespace  </b>
 ```
  kubectl create namespace  test
-``
+```
+
+<b> Create private key   </b>
+```
+  openssl genrsa -out ec2user.key 2048
+```
+
+<b> Create CSR  </b>
+```
+   openssl req -new -key ec2user.key -out ec2user.csr -subj "/CN=ec2user/O=adhocnw"
+```
+
+<b> Create CRT   </b>
+```
+openssl  x509  -req  -in ec2user.csr  -CA  /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key  -CAcreateserial -out ec2user.cst -days 1000
+```
+
+<b> setting credentials   </b>
+```
+   kubectl config set-credentials ec2user --client-certificate=/home/ec2-user/.certs/ec2user.crt --client-key=/home/ec2-user/.certs/ec2user.key
+```
+
+<b> Checking  clustername  </b>
+```
+    kubectl config get-contexts
+```
+
+
+<b> Create and set context  </b>
+```
+   kubectl config set-context  ec2user-context --cluster=kubernetes --namespace=test --user=ec2user
+```
+
+<b> Checking pods and other api-resources  </b>
+```
+   kubectl get pods --context=ec2user-context  --namespace=test
+
+Error from server (Forbidden): pods is forbidden: User "ec2user" cannot list resource "pods" in API group "" in the namespace "test"
+```
+
+
+<b> Creating roles for managing deployments  </b>
+```
+ kubectl create -f rolecrate.yml
+
+[ec2-user@ip-172-31-89-188 ~]$ kubectl get roles -n  test
+NAME         AGE
+deploy-app   12s
+   
+```
+
+
+<b> Create rolebindings  </b>
+```
+    kubectl create -f bindroletouser.yml
+```
+
+<b> using context to perform operations  </b>
+```
+[ec2-user@ip-172-31-89-188 ~]$ kubectl config get-contexts 
+CURRENT   NAME                          CLUSTER      AUTHINFO           NAMESPACE
+          ec2user-context               kubernetes   ec2user            test
+*         kubernetes-admin@kubernetes   kubernetes   kubernetes-admin   default
+
+[ec2-user@ip-172-31-89-188 ~]$ kubectl config use-context ec2user-context 
+Switched to context "ec2user-context".
+
+```
+
+
