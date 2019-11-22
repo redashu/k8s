@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: alpine
+  name: alpine1
+spec:
+  containers:
+  - command:
+    - /bin/sh
+    - -c
+    - echo $(MY_VAR);sleep 3600
+    image: alpine
+    name: alpine1
+    env:
+     - name: MY_VAR
+       valueFrom:
+        configMapKeyRef: 
+         name: testcfg
+         key: x
+  restartPolicy: Never
+
