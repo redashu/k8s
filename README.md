@@ -85,6 +85,7 @@ echo  'source <(kubectl completion bash)'  >>$HOME/.bashrc
 ## Deployments 
 This is the way generally people use to deploy application in production grade <br/>
 It can container single or more pods & easy to scale and upgrade <br/>
+Rolling updates is also very much good feature <br/>
 ###  Deploy Deployments from YAML 
 ```
 [root@station132 k8s]# kubectl  apply  -f  ashudep1.yml 
@@ -148,4 +149,51 @@ mydep-7546bf9d89      3         3         3       85s
 NAME                  DESIRED   CURRENT   READY   AGE
 ashudep1-64875ff59d   2         2         2       12m
 mydep-7546bf9d89      3         3         3       88s
+```
+
+##  Updating  new image to deployment 
+
+```
+[root@ip-172-31-89-188 ~]# kubectl get deployments.apps 
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+deployment   0/2     2            0           15h
+nginx        5/5     5            5           15h
+
+
+kubectl set image deployment nginx=nginx:1.7.9
+
+```
+
+## checking  rolling updates 
+```
+[root@ip-172-31-89-188 ~]# kubectl rollout status deployment nginx 
+deployment "nginx" successfully rolled out
+```
+
+## checking  rolling updates history 
+```
+[root@ip-172-31-89-188 ~]# kubectl rollout history  deployment nginx 
+deployment.apps/nginx 
+REVISION  CHANGE-CAUSE
+1         <none>
+```
+
+## we can set image and rolling updates revision will be new like
+```
+[root@ip-172-31-89-188 ~]# kubectl rollout history  deployment nginx 
+deployment.apps/nginx 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+```
+
+## TO undo the changes that was just recently happened :- you can use this 
+```
+[root@ip-172-31-89-188 ~]# kubectl rollout undo  deployment nginx 
+
+```
+## TO undo the changes to any revision :- you can use this 
+```
+[root@ip-172-31-89-188 ~]# kubectl rollout undo  deployment nginx --to-revision=1   #  here 1 is revision number 
+
 ```
