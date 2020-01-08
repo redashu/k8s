@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+  namespace: dev
+spec:
+  rules:
+  - host: test.apps.example.info
+    http:
+      paths:
+      - backend:
+          serviceName: hello-service
+          servicePort: 80
