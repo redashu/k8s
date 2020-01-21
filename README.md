@@ -35,6 +35,9 @@ Its free for everyone <br/>
  ```
  [root@master ~]# yum  install  docker kubeadm  -y
  ```
+ ## if kubeadm is not present in your repo 
+ you can browse this link [kubernetes repo](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)  <br/>
+ 
  ## Start service of docker & kubelet in all the nodes 
  ```
  [root@master ~]# systemctl enable --now  docker kubelet
