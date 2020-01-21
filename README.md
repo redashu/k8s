@@ -40,7 +40,7 @@ Its free for everyone <br/>
  
 ## yum can be configure by running this command 
 ```
-cat  EOF  >/etc/yum.repos.d/kube.repo
+cat  <<EOF  >/etc/yum.repos.d/kube.repo
 [kube]
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 gpgcheck=0
