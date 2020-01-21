@@ -38,6 +38,15 @@ Its free for everyone <br/>
  ## if kubeadm is not present in your repo 
  you can browse this link [kubernetes repo](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)  <br/>
  
+## yum can be configure by running this command 
+```
+cat  EOF  >/etc/yum.repos.d/kube.repo
+[kube]
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+gpgcheck=0
+EOF
+```
+ 
  ## Start service of docker & kubelet in all the nodes 
  ```
  [root@master ~]# systemctl enable --now  docker kubelet
