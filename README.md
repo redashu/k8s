@@ -58,6 +58,11 @@ EOF
 ```
 [root@master ~]# kubeadm  init --pod-network-cidr=192.168.0.0/16
 ```
+## this is optional 
+### In case of cloud like aws , azure if want to bind public with certificate of kubernetes 
+```
+[root@master ~]# kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=0.0.0.0   --apiserver-cert-extra-sans=publicip,privateip,serviceip
+```
 ### Use the output of above command and paste it to all the worker nodes
 
 ## Do this step in master node 
