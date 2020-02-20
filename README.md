@@ -11,7 +11,7 @@ Its free for everyone <br/>
 </ul>
 
 ## Kubernetes multinode setup 
-###  we have 4 machine , 1 master and 3 worker
+###  we have 4 machines; 1 master and 3 worker nodes
 ## Pre-requisite 
 
 ### Disable selinux in all the nodes
@@ -38,7 +38,7 @@ Its free for everyone <br/>
  ## if kubeadm is not present in your repo 
  you can browse this link [kubernetes repo](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)  <br/>
  
-## yum can be configure by running this command 
+## yum can be configured by running this command 
 ```
 cat  <<EOF  >/etc/yum.repos.d/kube.repo
 [kube]
@@ -52,14 +52,14 @@ EOF
  [root@master ~]# systemctl enable --now  docker kubelet
  ```
  ## Do this only on Kubernetes Master 
- We are here using Calico Networking so we need to pass some parameter 
+ We are here using Calico Networking, so we need to pass some parameter 
  you can start [Kubernetes_networking](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) from this  <br/>
  
 ```
 [root@master ~]# kubeadm  init --pod-network-cidr=192.168.0.0/16
 ```
 ## this is optional 
-### In case of cloud like aws , azure if want to bind public with certificate of kubernetes 
+### In case of cloud services like aws, azure if want to bind public with certificate of kubernetes 
 ```
 [root@master ~]# kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=0.0.0.0   --apiserver-cert-extra-sans=publicip,privateip,serviceip
 ```
@@ -76,7 +76,7 @@ EOF
 ```
 kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
 ```
-After this all nodes will be ready in state
+After this all nodes will be in ready state
 
 ## Now you can check nodes status
 ```
