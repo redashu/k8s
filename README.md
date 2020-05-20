@@ -89,3 +89,40 @@ node3.example.com    Ready    <none>   9m3s    v1.12.2
 ```
 
 Good luck guys !!
+
+# Kubernetes Network policy 
+
+## Its like firewall for your pods
+## There are two type ot network policy
+<ol>
+	<li> Ingress </li>
+	<li> Egress </li>
+</ol>
+
+<h2> Ingress  </h2>
+--
+When traffic is comming towards pods means from outside to pods
+
+<h2> Egress  </h2>
+--
+When traffic is going outside to Pods 
+
+# Network policies works on behalf of labels on pod and it is also restricted to Namespace 
+
+# Deny all traffic to pod
+
+```
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: web-deny-all
+  namespace: kube-public
+spec:
+  podSelector:
+    matchLabels:
+      app: exam
+  ingress: []
+
+```
+
+### kubectl  create -f netpolicy_deny.yml 
