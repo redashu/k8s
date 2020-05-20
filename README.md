@@ -126,3 +126,24 @@ spec:
 ```
 
 ### kubectl  create -f netpolicy_deny.yml 
+
+
+# ONly allow from a specfic Pod 
+
+```
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: api-allow
+  namespace: kube-public
+spec:
+  podSelector:
+    matchLabels:
+      app: exam  #  label of pods where we want to apply policy 
+  ingress:
+  - from:
+      - podSelector:
+          matchLabels:
+            x: hello             #from this pod we can only access
+```
+### kubectl create  -f  limit_access.yml
