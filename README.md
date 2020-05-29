@@ -72,3 +72,7 @@ node3.example.com    Ready    <none>   9m3s    v1.12.2
 ```
 
 Good luck guys !!
+
+## TO deploy ingress controller in EKS:
+----
+(Here is the Link)[https://aws.amazon.com/blogs/opensource/network-load-balancer-nginx-ingress-controller-eks/]
