@@ -76,6 +76,7 @@ Good luck guys !!
 ## To deploy ingress controller in Minikube 
 <ul>
 	<li> check addons </li>
+
 ```
 ashutoshhs-MacBook-Air:~ fire$ minikube addons  list 
 |-----------------------------|----------|--------------|
@@ -106,9 +107,13 @@ ashutoshhs-MacBook-Air:~ fire$ minikube addons  list
 |-----------------------------|----------|--------------|
 
 ```
-<li> Enable ingress addon and check it again</li>
+
+<li> Enable ingress addon and check it again </li>
+
 ```
 ashutoshhs-MacBook-Air:~ fire$ minikube addons  enable ingress
+
+
 ashutoshhs-MacBook-Air:~ fire$ minikube addons  list 
 |-----------------------------|----------|--------------|
 |         ADDON NAME          | PROFILE  |    STATUS    |
