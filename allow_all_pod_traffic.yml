@@ -1,0 +1,10 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+ name: ashupol-allow-ingress
+spec:
+ podSelector: {}   #  selecting all the pods 
+ ingress:
+ - {}    #  match all the ingress 
+ policyTypes:
+ - Ingress
