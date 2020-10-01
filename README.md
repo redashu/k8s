@@ -64,3 +64,13 @@ de3                    1/1     Running   0          81m   192.168.221.6     node
 pod1                   1/1     Running   0          13s   192.168.178.236   node3.example.com   <none>
 ```
 
+## checking the default schedule 
+
+```
+ashutoshhs-MacBook-Air:~ fire$ kubectl get po po1 -o yaml  |  grep -i sche
+        f:schedulerName: {}
+  schedulerName: default-scheduler
+    type: PodScheduled
+
+```
+
