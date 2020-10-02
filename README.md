@@ -1,36 +1,85 @@
-# Taints and tolerations
+# Affinity in Kubernetes 
 
-## taints
+## This is advanced scheduling concept in kubernetes 
 
-<b>  Meaning preventing all pods to be scheduled on a particular node  where we have applied taints </b>
+### So Kubernetes 1.6 offers four advanced scheduling features: node affinity/anti-affinity, taints and tolerations, pod affinity/anti-affinity, and custom schedulers.
 
-## Taints a Node 
+### Here we can decide which pod to be schedule on which worker node 
 
-<img src="taints.png">
+```
+kubectl label nodes <your-node-name> disktype=ssd
 
-## taint effects 
+```
 
-<b> Meaning what will happen to the pods if they do not tolerate to taints </b>
+##  add node affinity in pod 
 
-### There are 3 taints effect
+### Schedule a Pod using required node affinity
 
-<ol>
-	<li> Noschedule </li> -->> k8s schedular will never schedule a pods in taints node 
-	<li> PreferNoschedule </li> -->> k8s schedular will try not to schedule pods in taints node but that is not guaranteed 
-	<li> Noexecute </li> --->>  No new pods will be scheduled on the node and existing pod will be evicted 
-</ol>
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:  # Required Node affinity 
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd            
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+    
+```
+
+### Schedule a Pod using preferred node affinity
+
+```
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd          
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+
+```
+
+### YOu can also do the same with node selector 
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  nodeSelector:
+    disktype: ssd
+```
 
 
-## Tolerations 
-
-<b> applied on pods so that they can tolerate to the node that has been taints  </b>
-
-## apply tolerations on the pod 
-
-<img src="tolerate.png">
-
-
-# Important point 
-
-<i> taints means it is not going to accept all the pods that can not tolerate but in some cases pods can go in non taints node as well </i>
 
