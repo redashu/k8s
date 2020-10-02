@@ -1,91 +1,36 @@
-# Kubernetes :- The Production grade container orchestration  Engine 
-## Info about Kubernetes
-Kubernetes in the most powerfull container orchestration engine <br/>
-Its free for everyone <br/>
-## Developement  info 
-<ul>
-	<li> Developed by Google and CNCF  </li>
-	<li> 7 June 2014 is the Release date  </li>
-	<li> written in Go lang  </li>
-	
-</ul>
+# Taints and tolerations
 
-## Kubernetes multinode setup 
-###  we have 4 machine , 1 master and 3 worker
-## Pre-requisite 
+## taints
 
-### Disable selinux in all the nodes
+<b>  Meaning preventing all pods to be scheduled on a particular node  where we have applied taints </b>
 
-```
-  [root@master ~]# setenforce  0
-  [root@master ~]# sed -i 's/SELINUX=enforcing/SELINUX=disabled/'  /etc/selinux/config
-  
- ```
- 
- ### Enable the kernel bridge for every system
- ```
- [root@master ~]# modprobe br_netfilter
- [root@master ~]# echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
- ```
- ### Disable the swap 
- ```
- [root@master ~]# swapoff  -a
- ```
- ## Installing  docker and kubeadm in all the nodes 
- ```
- [root@master ~]# yum  install  docker kubeadm  -y
- ```
- ## if kubeadm is not present in your repo 
- you can browse this link [kubernetes repo](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)  <br/>
- 
-## yum can be configure by running this command 
-```
-cat  <<EOF  >/etc/yum.repos.d/kube.repo
-[kube]
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-gpgcheck=0
-EOF
-```
- 
- ## Start service of docker & kubelet in all the nodes 
- ```
- [root@master ~]# systemctl enable --now  docker kubelet
- ```
- ## Do this only on Kubernetes Master 
- We are here using Calico Networking so we need to pass some parameter 
- you can start [Kubernetes_networking](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) from this  <br/>
- 
-```
-[root@master ~]# kubeadm  init --pod-network-cidr=192.168.0.0/16
-```
-## this is optional 
-### In case of cloud like aws , azure if want to bind public with certificate of kubernetes 
-```
-[root@master ~]# kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=0.0.0.0   --apiserver-cert-extra-sans=publicip,privateip,serviceip
-```
-### Use the output of above command and paste it to all the worker nodes
+## Taints a Node 
 
-## Do this step in master node 
-```
-[root@master ~]# mkdir -p $HOME/.kube
-[root@master ~]#  cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-[root@master ~]# chown $(id -u):$(id -g) $HOME/.kube/config
-```
+<img src="taints.png">
 
-##  Now apply calico project 
-```
-kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
-```
-After this all nodes will be ready in state
+## taint effects 
 
-## Now you can check nodes status
-```
-[root@master ~]# kubectl get nodes
-NAME                 STATUS   ROLES    AGE     VERSION
-master.example.com   Ready    master   11m     v1.12.2
-node1.example.com    Ready    <none>   9m51s   v1.12.2
-node2.example.com    Ready    <none>   9m25s   v1.12.2
-node3.example.com    Ready    <none>   9m3s    v1.12.2
-```
+<b> Meaning what will happen to the pods if they do not tolerate to taints </b>
 
-Good luck guys !!
+### There are 3 taints effect
+
+<ol>
+	<li> Noschedule </li> -->> k8s schedular will never schedule a pods in taints node 
+	<li> PreferNoschedule </li> -->> k8s schedular will try not to schedule pods in taints node but that is not guaranteed 
+	<li> Noexecute </li> --->>  No new pods will be scheduled on the node and existing pod will be evicted 
+</ol>
+
+
+## Tolerations 
+
+<b> applied on pods so that they can tolerate to the node that has been taints  </b>
+
+## apply tolerations on the pod 
+
+<img src="tolerate.png">
+
+
+# Important point 
+
+<i> taints means it is not going to accept all the pods that can not tolerate but in some cases pods can go in non taints node as well </i>
+
