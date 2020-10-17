@@ -10,57 +10,61 @@ Its free for everyone <br/>
 	
 </ul>
 
-## Updatig cluster 
+# Monitoring in K8s 
 
-## In k8s This is really important in production grade cluster to understand and follow the steps for
+## random docs -- need to change 
 
-<ul>
-	<li> maintaince mode </li>
-	<li> remove node from cluster </li>
-	<li> join a new cluster  </li>
-	
-</ul>
-
-# putting a node in maintaince mode 
-
-## Important points : 
-
-i) make sure you have pods managed by RS|RC|statefulsets|deployments 
-ii) 
+## prometheus server :-
 
 ```
-404  kubectl get no
-  405  kubectl drain  ip-172-31-69-50.ec2.internal 
-  406  kubectl get all -n ashu-space 
-  407  kubectl drain  ip-172-31-69-50.ec2.internal  --ignore-daemonsets 
-  408  kubectl drain  ip-172-31-69-50.ec2.internal  --ignore-daemonsets --force
-  409  kubectl get no
-  410  kubectl get po -n ashu-space 
-  411  kubectl get po -n ashu-space  -o wide
-  412  history 
-ashutoshhs-MacBook-Air:~ fire$ kubectl get no
-NAME                            STATUS                     ROLES    AGE     VERSION
-ip-172-31-69-50.ec2.internal    Ready,SchedulingDisabled   <none>   2d18h   v1.19.2
-ip-172-31-69-53.ec2.internal    Ready                      <none>   2d18h   v1.19.2
-ip-172-31-73-197.ec2.internal   Ready                      <none>   2d18h   v1.19.2
-ip-172-31-78-86.ec2.internal    Ready                      master   2d18h   v1.19.2
+docker run \
+    -p 9090:9090 \
+    -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \
+    prom/prometheus
+    
+```
+
+## Node Exporter 
+
+```
+docker run -d \
+  --net="host" \
+  --pid="host" \
+  -v "/:/host:ro,rslave" \
+  quay.io/prometheus/node-exporter \
+  --path.rootfs=/host
+  
+```
+
+## grafana 
+
+```
+docker run -d -p 3000:3000 --name grafana grafana/grafana
 
 ```
 
-## Now you can delete the nodes if you don't want to use it any more
+## Some info about grafana 
 
 ```
-ashutoshhs-MacBook-Air:~ fire$ kubectl delete nodes  ip-172-31-69-50.ec2.internal 
-node "ip-172-31-69-50.ec2.internal" deleted
+Important changes
+
+File ownership is no longer modified during startup with chown.
+Default user ID is now 472 instead of 104.
+Removed the following implicit volumes:
+/var/lib/grafana
+/etc/grafana
+/var/log/grafana
 
 ```
 
-# Note : Before deleting if you want to rejoin it 
+---
 
 ```
-kubectl uncordon  ip-172-31-69-50.ec2.internal
+# in the container you just started:
+chown -R root:root /etc/grafana && \
+chmod -R a+r /etc/grafana && \
+chown -R grafana:grafana /var/lib/grafana && \
+chown -R grafana:grafana /usr/share/grafana
+
 ```
 
-
-	
-	
