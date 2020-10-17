@@ -23,7 +23,7 @@ metadata:
 spec:
   affinity:
     nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:  # Required Node affinity 
+      requiredDuringSchedulingIgnoredDuringExecution:  # Required Node affinity  this can be assumed as hard 
         nodeSelectorTerms:
         - matchExpressions:
           - key: disktype
@@ -48,7 +48,7 @@ metadata:
 spec:
   affinity:
     nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
+      preferredDuringSchedulingIgnoredDuringExecution: # its not a hard thing but preferable 
       - weight: 1
         preference:
           matchExpressions:
