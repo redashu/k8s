@@ -10,82 +10,57 @@ Its free for everyone <br/>
 	
 </ul>
 
-## Kubernetes multinode setup 
-###  we have 4 machines; 1 master and 3 worker nodes
-## Pre-requisite 
+## Updatig cluster 
 
-### Disable selinux in all the nodes
+## In k8s This is really important in production grade cluster to understand and follow the steps for
+
+<ul>
+	<li> maintaince mode </li>
+	<li> remove node from cluster </li>
+	<li> join a new cluster  </li>
+	
+</ul>
+
+# putting a node in maintaince mode 
+
+## Important points : 
+
+i) make sure you have pods managed by RS|RC|statefulsets|deployments 
+ii) 
 
 ```
-  [root@master ~]# setenforce  0
-  [root@master ~]# sed -i 's/SELINUX=enforcing/SELINUX=disabled/'  /etc/selinux/config
-  
- ```
- 
- ### Enable the kernel bridge for every system
- ```
- [root@master ~]# modprobe br_netfilter
- [root@master ~]# echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
- ```
- ### Disable the swap 
- ```
- [root@master ~]# swapoff  -a
- ```
- ## Installing  docker and kubeadm in all the nodes 
- ```
- [root@master ~]# yum  install  docker kubeadm  -y
- ```
- ## if kubeadm is not present in your repo 
- you can browse this link [kubernetes repo](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)  <br/>
- 
-## yum can be configured by running this command 
-```
-cat  <<EOF  >/etc/yum.repos.d/kube.repo
-[kube]
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-gpgcheck=0
-EOF
-```
- 
- ## Start service of docker & kubelet in all the nodes 
- ```
- [root@master ~]# systemctl enable --now  docker kubelet
- ```
- ## Do this only on Kubernetes Master 
- We are here using Calico Networking, so we need to pass some parameter 
- you can start [Kubernetes_networking](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) from this  <br/>
- 
-```
-[root@master ~]# kubeadm  init --pod-network-cidr=192.168.0.0/16
-```
-## this is optional 
-### In case of cloud services like aws, azure if want to bind public with certificate of kubernetes 
-```
-[root@master ~]# kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=0.0.0.0   --apiserver-cert-extra-sans=publicip,privateip,serviceip
-```
-### Use the output of above command and paste it to all the worker nodes
+404  kubectl get no
+  405  kubectl drain  ip-172-31-69-50.ec2.internal 
+  406  kubectl get all -n ashu-space 
+  407  kubectl drain  ip-172-31-69-50.ec2.internal  --ignore-daemonsets 
+  408  kubectl drain  ip-172-31-69-50.ec2.internal  --ignore-daemonsets --force
+  409  kubectl get no
+  410  kubectl get po -n ashu-space 
+  411  kubectl get po -n ashu-space  -o wide
+  412  history 
+ashutoshhs-MacBook-Air:~ fire$ kubectl get no
+NAME                            STATUS                     ROLES    AGE     VERSION
+ip-172-31-69-50.ec2.internal    Ready,SchedulingDisabled   <none>   2d18h   v1.19.2
+ip-172-31-69-53.ec2.internal    Ready                      <none>   2d18h   v1.19.2
+ip-172-31-73-197.ec2.internal   Ready                      <none>   2d18h   v1.19.2
+ip-172-31-78-86.ec2.internal    Ready                      master   2d18h   v1.19.2
 
-## Do this step in master node 
-```
-[root@master ~]# mkdir -p $HOME/.kube
-[root@master ~]#  cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-[root@master ~]# chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-##  Now apply calico project 
-```
-kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
-```
-After this all nodes will be in ready state
+## Now you can delete the nodes if you don't want to use it any more
 
-## Now you can check nodes status
 ```
-[root@master ~]# kubectl get nodes
-NAME                 STATUS   ROLES    AGE     VERSION
-master.example.com   Ready    master   11m     v1.12.2
-node1.example.com    Ready    <none>   9m51s   v1.12.2
-node2.example.com    Ready    <none>   9m25s   v1.12.2
-node3.example.com    Ready    <none>   9m3s    v1.12.2
+ashutoshhs-MacBook-Air:~ fire$ kubectl delete nodes  ip-172-31-69-50.ec2.internal 
+node "ip-172-31-69-50.ec2.internal" deleted
+
 ```
 
-Good luck guys !!
+# Note : Before deleting if you want to rejoin it 
+
+```
+kubectl uncordon  ip-172-31-69-50.ec2.internal
+```
+
+
+	
+	
