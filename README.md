@@ -76,6 +76,14 @@ EOF
 ```
 kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
 ```
+## Or Download 3.16 latest version as now october 2020 
+
+```
+wget https://docs.projectcalico.org/manifests/calico.yaml
+kubectl apply -f calico.yaml
+
+```
+
 After this all nodes will be in ready state
 
 ## Now you can check nodes status
