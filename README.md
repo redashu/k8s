@@ -10,75 +10,7 @@ Its free for everyone <br/>
 	
 </ul>
 
-## Kubernetes multinode setup 
-###  we have 4 machine , 1 master and 3 worker
-## Pre-requisite 
-
-### Disable selinux in all the nodes
-
-```
-  [root@master ~]# setenforce  0
-  [root@master ~]# sed -i 's/SELINUX=enforcing/SELINUX=disabled/'  /etc/selinux/config
-  
- ```
- 
- ### Enable the kernel bridge for every system
- ```
- [root@master ~]# modprobe br_netfilter
- [root@master ~]# echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
- ```
- ### Disable the swap 
- ```
- [root@master ~]# swapoff  -a
- ```
- ## Installing  docker and kubeadm in all the nodes 
- ```
- [root@master ~]# yum  install  docker kubeadm  -y
- ```
- ## if kubeadm is not present in your repo 
- you can browse this link [kubernetes repo](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)  <br/>
- 
-## yum can be configure by running this command 
-```
-cat  <<EOF  >/etc/yum.repos.d/kube.repo
-[kube]
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-gpgcheck=0
-EOF
-```
- 
- ## Start service of docker & kubelet in all the nodes 
- ```
- [root@master ~]# systemctl enable --now  docker kubelet
- ```
- ## Do this only on Kubernetes Master 
- We are here using Calico Networking so we need to pass some parameter 
- you can start [Kubernetes_networking](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) from this  <br/>
- 
-```
-[root@master ~]# kubeadm  init --pod-network-cidr=192.168.0.0/16
-```
-## this is optional 
-### In case of cloud like aws , azure if want to bind public with certificate of kubernetes 
-```
-[root@master ~]# kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=0.0.0.0   --apiserver-cert-extra-sans=publicip,privateip,serviceip
-```
-### Use the output of above command and paste it to all the worker nodes
-
-## Do this step in master node 
-```
-[root@master ~]# mkdir -p $HOME/.kube
-[root@master ~]#  cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-[root@master ~]# chown $(id -u):$(id -g) $HOME/.kube/config
-```
-
-##  Now apply calico project 
-```
-kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
-```
-After this all nodes will be ready in state
-
-## Now you can check nodes status
+## you can check nodes status
 ```
 [root@master ~]# kubectl get nodes
 NAME                 STATUS   ROLES    AGE     VERSION
@@ -88,7 +20,19 @@ node2.example.com    Ready    <none>   9m25s   v1.12.2
 node3.example.com    Ready    <none>   9m3s    v1.12.2
 ```
 
-Good luck guys !!
+## Note : Not all CNI are supporting Network policy so check about your CNI in kubernetes Docs 
+## Check for CNI 
+
+```
+[root@ip-172-31-47-137 ~]# kubectl get po -n kube-system
+NAME                                                    READY   STATUS    RESTARTS   AGE
+calico-kube-controllers-7d569d95-wpfww                  1/1     Running   0          23m
+calico-node-cmjt7                                       1/1     Running   0          23m
+calico-node-lcwvv                                       1/1     Running   0          23m
+calico-node-xt2qw                                       1/1     Running   0          23m
+
+```
+
 
 # Kubernetes Network policy 
 
@@ -147,3 +91,43 @@ spec:
             x: hello             #from this pod we can only access
 ```
 ### kubectl create  -f  limit_access.yml
+
+## One More example 
+
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: test-network-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 172.17.0.0/16
+        except:
+        - 172.17.1.0/24
+    - namespaceSelector:
+        matchLabels:
+          project: myproject
+    - podSelector:
+        matchLabels:
+          role: frontend
+    ports:
+    - protocol: TCP
+      port: 6379
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/24
+    ports:
+    - protocol: TCP
+      port: 5978
+```
+
