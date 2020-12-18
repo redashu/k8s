@@ -1,0 +1,43 @@
+- hosts: all
+  remote_user: ec2-user
+  become: true
+  tasks:
+   - name: swap disable
+     shell: swapoff -a
+   - name: selinux disable
+     shell: "setenforce  0;sed -i 's/SELINUX=enforcing/SELINUX=disabled/'  /etc/selinux/config"
+   - name: enable kernel bridge 
+     shell: "modprobe br_netfilter;echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"
+   - name: configure yum repo 
+     yum_repository:
+      name: epel
+      description: google YUM repo
+      file: k8sgoogle
+      baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+      gpgcheck: no
+
+   - name: installing docker and kubelet 
+     yum: 
+      name: "{{ item }}"
+      state: present
+     loop: 
+      - docker
+      - kubeadm
+   - name: starting service of docker 
+     service:
+      name: docker
+      state: started
+      enabled: yes
+   - name: starting service of kubelet 
+     service:
+      name: kubelet
+      state: started
+      enabled: yes
+
+- hosts: minion
+  remote_user: ec2-user
+  become: true
+  tasks:
+   - name: installing master node
+     shell: "kubeadm join 172.31.74.3:6443 --token 12vesa.lqlbc56m8x2hses7 \
+    --discovery-token-ca-cert-hash sha256:939c20e4ac13b1da54ca5217fe6d0039bf07e39c18b032c9747f2400f29ef9c1"
