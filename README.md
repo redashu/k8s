@@ -84,6 +84,19 @@ kubectl apply -f calico.yaml
 
 ```
 
+# INstalling calico in minikube cluster..
+
+```
+minikube start --network-plugin=cni --cni=calico
+
+```
+
+## ADding new node in minikube 
+
+```
+  minikube node add
+```
+
 After this all nodes will be in ready state
 
 ## Now you can check nodes status
