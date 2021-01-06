@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pingtest-pool2
+  annotations:
+    cni.projectcalico.org/ipv4pools: "[\"pool1\"]"
+    cni.projectcalico.org/podIP: 192.168.28.192/32
+spec:
+  containers:
+  - args:
+    - sleep
+    - infinity
+    image: busybox
+    imagePullPolicy: Always
+    name: pingtest

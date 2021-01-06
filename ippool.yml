@@ -1,0 +1,10 @@
+apiVersion: projectcalico.org/v3
+kind: IPPool
+metadata:
+  name: pool1
+spec:
+  cidr: 192.168.0.0/18
+  ipipMode: Never
+  natOutgoing: true
+  disabled: false
+  nodeSelector: all()
