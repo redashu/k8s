@@ -26,4 +26,4 @@ chmod +x calicoctl
 sudo mv calicoctl /usr/local/bin/
 ```
 
-# link (`https://docs.projectcalico.org/getting-started/kubernetes/hardway/the-calico-datastore`)
+# link ('https://docs.projectcalico.org/getting-started/kubernetes/hardway/the-calico-datastore')
