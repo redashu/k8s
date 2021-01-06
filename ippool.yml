@@ -4,7 +4,7 @@ metadata:
   name: pool1
 spec:
   cidr: 192.168.0.0/18
-  ipipMode: Never
+  ipipMode: Never # no communication among the pod in this pool 
   natOutgoing: true
   disabled: false
   nodeSelector: all()
