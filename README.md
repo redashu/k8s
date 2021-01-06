@@ -50,5 +50,12 @@ pool2                 192.167.0.0/16   all()
 
 ```
 
+## deploy pod in custom ipPOOL 
+
+```
+kubectl apply -f podnnew.yml
+
+```
+
 
 # link ('https://docs.projectcalico.org/getting-started/kubernetes/hardway/the-calico-datastore')
