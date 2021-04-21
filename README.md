@@ -29,6 +29,14 @@
 
 <img src="tolerate.png">
 
+## Remove taints from node 
+
+```
+❯ kubectl  taint node  ip-172-31-75-3.ec2.internal  x=hellon:NoSchedule-
+node/ip-172-31-75-3.ec2.internal untainted
+
+```
+
 
 # Important point 
 
