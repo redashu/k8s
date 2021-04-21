@@ -61,6 +61,13 @@ node "ip-172-31-69-50.ec2.internal" deleted
 kubectl uncordon  ip-172-31-69-50.ec2.internal
 ```
 
+# How to print joining token from master Node 
 
+```
+ kubeadm  token create --print-join-command
+ --
+kubeadm join 172.31.69.220:6443 --token bor4k5.ku4cetqnn5ogyp9n --discovery-token-ca-cert-hash sha256:8ed2fe7fc3f8679079eec978bb0aef615801d21adc28
+
+```
 	
 	
