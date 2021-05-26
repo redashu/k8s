@@ -63,6 +63,13 @@ EOF
 ```
 [root@master ~]# kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=0.0.0.0   --apiserver-cert-extra-sans=publicip,privateip,serviceip
 ```
+
+## Note: IF you want to bind your controlplane with public IP also 
+
+```
+[root@master ~]# kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=0.0.0.0   --apiserver-cert-extra-sans=publicip,privateip,serviceip  --control-plane-endpoint=publicIP
+```
+
 ### Use the output of above command and paste it to all the worker nodes
 
 ## Do this step in master node 
