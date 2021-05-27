@@ -116,4 +116,23 @@ node2.example.com    Ready    <none>   9m25s   v1.12.2
 node3.example.com    Ready    <none>   9m3s    v1.12.2
 ```
 
-Good luck guys !!
+# Getting started with RBAC 
+
+## create a service account 
+
+```
+ kubectl  create sa  test
+```
+
+## creating a role 
+
+```
+kubectl create role pod-reader --verb=get --verb=list --verb=watch --resource=pods
+
+```
+
+## Bind role to service account 
+
+```
+
+
