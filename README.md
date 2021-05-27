@@ -295,3 +295,52 @@ users:
 [ec2-user@ip-172-31-89-188 .kube]$ kubectl auth  can-i create service
 no
 ```
+
+# Note: Importance - creating  COnfig file for kubernetes clients using serviceaccount 
+
+## steps to create --  
+
+## create namespace 
+
+```
+[root@masternode ~]# kubectl  create  namespace  delvex 
+namespace/delvex created
+[root@masternode ~]# kubectl  get  ns
+NAME                   STATUS   AGE
+default                Active   23h
+delvex                 Active   5s
+
+```
+
+##  check serviceaccount under delvex namespace 
+
+```
+[root@masternode ~]# kubectl  get  sa  -n delvex 
+NAME      SECRETS   AGE
+default   1         69s
+
+```
+
+## create secret  for the same service account 
+
+```
+[root@masternode ~]# kubectl  get  sa  -n delvex 
+NAME      SECRETS   AGE
+default   1         69s
+
+```
+
+## Now you a have script called  config_create.sh 
+
+### these details needs to be updated
+
+	<ol>
+		<li> namespace </li>
+		<li> service account token  </li>
+		<li> apiserver URL </li>
+	</ol>
+
+
+## now you can share that file with clients / admin / developers 
+
+
