@@ -23,19 +23,19 @@ echo "
 apiVersion: v1
 kind: Config
 clusters:
-- name: default-cluster
+- name: default-cluster # name of k8s cluster 
   cluster:
     certificate-authority-data: ${ca}
     server: ${server}
 contexts:
-- name: default-context
+- name: default-context  # name of cluster context 
   context:
-    cluster: default-cluster
+    cluster: default-cluster  # name of cluster 
     namespace: default
-    user: default-user
-current-context: default-context
+    user: default-user  # name of service account 
+current-context: default-context # current context 
 users:
-- name: default-user
+- name: default-user # name of service account 
   user:
     token: ${token}
 " > sa.kubeconfig
