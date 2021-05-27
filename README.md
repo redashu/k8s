@@ -343,4 +343,5 @@ default   1         69s
 
 ## now you can share that file with clients / admin / developers 
 
+## Now create role and bind with service account that you created 
 
