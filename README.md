@@ -117,3 +117,8 @@ node3.example.com    Ready    <none>   9m3s    v1.12.2
 ```
 
 Good luck guys !!
+
+## Horizontal Pod Autoscaller 
+
+
+
