@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: name-virtual-host-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: test.ashutoshh.in
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/t1"
+        backend:
+          service:
+            name: dd
+            port:
+              number: 80
+      - pathType: Prefix
+        path: "/t2"
+        backend:
+          service:
+            name: dd11
+            port:
+              number: 80
