@@ -46,8 +46,19 @@ baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 gpgcheck=0
 EOF
 ```
+
+## You may have to change docker cgroup driver from overlay to Systemd  (since kubernetes 1.20)
  
- ## Start service of docker & kubelet in all the nodes 
+```
+cat  <<X  >/etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+
+X
+``` 
+ 
+## Start service of docker & kubelet in all the nodes 
  ```
  [root@master ~]# systemctl enable --now  docker kubelet
  ```
