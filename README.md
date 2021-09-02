@@ -197,6 +197,32 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
   
 ```
 
+## dashboard deployment
+
+```
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+helm install my-release kubernetes-dashboard/kubernetes-dashboard
+```
+
+### We can do like this as well
+
+```
+helm install kubernetes-dashboard/kubernetes-dashboard --name my-release --set=service.externalPort=8080,resources.limits.cpu=200m
+  
+```
+
+### setting service account with clusterrole admin 
+
+```
+kubectl create clusterrolebinding dashboard-admin-sa   --clusterrole=cluster-admin   --serviceaccount=default:my-release-kubernetes-dashboard
+```
+
+### Deleting chart 
+
+```
+helm delete my-release
+```
+
 
 
 	
