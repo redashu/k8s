@@ -70,7 +70,7 @@ Its free for everyone <br/>
 
 ### till account need alot of power so in v2 tiller got removed 
 
-<img src="tillerv2.ping">
+<img src="tillerv2.png">
 
 
 
