@@ -28,6 +28,52 @@ Its free for everyone <br/>
 	
 </ul>
 
+### Helm alternatives 
+
+<ul>
+	<li> kustomize </li>
+	<li> Draft </li>
+	<li> GitKube </li>
+	<li> ksonnet  </li>
+	<li> Metaparticle </li>
+	<li> Skaffold </li>
+
+</ul>
+
+### TO read more about them 
+
+[Link](https://hasura.io/blog/draft-vs-gitkube-vs-helm-vs-ksonnet-vs-metaparticle-vs-skaffold-f5aa9561f948/)
+
+
+### Helm public repositories 
+
+[Artifcats](https://artifacthub.io/)
+[jfrog repo](https://www.jfrog.com/confluence/display/JFROG/Kubernetes+Helm+Chart+Repositories)
+
+
+### Helm things  to know 
+
+<ul>
+	<li> helm v3 don't need tiller account  </li>
+	<li> we can use helm as template engine  </li>
+	<li> public and private repo both we can configue  </li>
+	<li> ksonnet  </li>
+	<li> Metaparticle </li>
+	<li> Skaffold </li>
+
+</ul>
+
+
+### HElm v2 architecture 
+
+<img src="helm2arch.png">
+
+### till account need alot of power so in v2 tiller got removed 
+
+<img src="tillerv2.ping">
+
+
+
 ## HElm 3 installation on client side 
 
 ```
@@ -223,6 +269,14 @@ kubectl create clusterrolebinding dashboard-admin-sa   --clusterrole=cluster-adm
 helm delete my-release
 ```
 
+
+### Helm charts structure 
+
+<img src="charts1.png">
+
+### helm charts more info 
+
+<img src="charts2.png">
 
 
 	
