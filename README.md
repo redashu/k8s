@@ -278,6 +278,130 @@ helm delete my-release
 
 <img src="charts2.png">
 
+### pulling charts from repo 
 
-	
-	
+```
+❯ helm repo add bitnami https://charts.bitnami.com/bitnami
+"bitnami" has been added to your repositories
+❯ helm repo ls
+NAME   	URL                               
+bitnami	https://charts.bitnami.com/bitnami
+❯ helm pull bitnami/nginx
+❯ ls
+       mychart
+       nginx-9.5.3.tgz
+                          
+❯ tar xvzf  nginx-9.5.3.tgz
+
+
+❯ cd  nginx
+❯ ls
+Chart.lock         Chart.yaml         README.md          charts             ci                 templates          values.schema.json values.yaml
+
+░▒▓ /tmp/nginx
+
+```
+
+## Creating a helm charts 
+
+### step 1 
+
+```
+ helm create  <chartname>
+ ===
+  helm create  mychart
+```
+
+### Step 2 :-  checking directory structure 
+
+```
+❯ helm create  devops
+Creating devops
+❯ ls -R devops
+Chart.yaml  charts      templates   values.yaml
+
+devops/charts:
+
+devops/templates:
+NOTES.txt           deployment.yaml     ingress.yaml        serviceaccount.yaml
+_helpers.tpl        hpa.yaml            service.yaml        tests
+
+devops/templates/tests:
+test-connection.yaml
+
+```
+
+###  step 3 :- removing all template directory content except (_helpers.tpl )
+
+```
+cd  devops 
+rm -rvf *.yaml 
+rm -rf tests
+```
+
+### step 4 copy your  YAML data to templates directory 
+
+
+### step 5 : check helm charts structure is correct or not 
+
+```
+helm template  <chart_name>  <chart_directory_name>
+=====
+helm template  devops  devops 
+```
+
+## Deployment using chart 
+
+```
+❯ helm install mychart  mychart
+NAME: mychart
+LAST DEPLOYED: Sat Sep  4 13:11:43 2021
+NAMESPACE: ashu-space
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+1. Get the application URL by running these commands:
+  export POD_NAME=$(kubectl get pods --namespace ashu-space -l "app.kubernetes.io/name=mychart,app.kubernetes.io/instance=mychart" -o jsonpath="{.items[0].metadata.name}")
+  export CONTAINER_PORT=$(kubectl get pod --namespace ashu-space $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  echo "Visit http://127.0.0.1:8080 to use your application"
+  kubectl --namespace ashu-space port-forward $POD_NAME 8080:$CONTAINER_PORT
+  
+  
+```
+
+### list of deployed / released charts 
+
+```
+❯ helm list
+NAME   	NAMESPACE 	REVISION	UPDATED                             	STATUS  	CHART        	APP VERSION
+mychart	ashu-space	1       	2021-09-04 13:11:43.157493 +0530 IST	deployed	mychart-0.1.0	1.16.0     
+```
+
+### details about charts 
+
+```
+❯  helm show chart mychart
+apiVersion: v2
+appVersion: 1.16.0
+description: A Helm chart for Kubernetes
+name: mychart
+type: application
+version: 0.1.0
+
+```
+
+### helm uninstall 
+
+```
+helm uninstall lnbchart
+```
+
+## Helm advanced 
+
+### dynamic values using value 
+
+```
+
+
+```
