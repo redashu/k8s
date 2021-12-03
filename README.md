@@ -71,3 +71,74 @@ Container   cpu       200m  800m  800m             800m           -
 
 ```
 
+### setting memory limits 
+
+```
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-min-max-demo-lr
+spec:
+  limits:
+  - max:
+      memory: 1Gi
+    min:
+      memory: 500Mi
+    type: Container
+    
+    
+```
+### setting default cpu limits 
+
+```
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-limit-range
+spec:
+  limits:
+  - default:
+      cpu: 1
+    defaultRequest:
+      cpu: 0.5
+    type: Container
+    
+```
+
+### setting persistent storage 
+
+```
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: storagelimits
+spec:
+  limits:
+  - type: PersistentVolumeClaim
+    max:
+      storage: 2Gi
+    min:
+      storage: 1Gi
+      
+```
+
+### POD with limits 
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: quota-mem-cpu-demo-2
+spec:
+  containers:
+  - name: quota-mem-cpu-demo-2-ctr
+    image: redis
+    resources:
+      limits:
+        memory: "1Gi"
+        cpu: "800m"
+      requests:
+        memory: "700Mi"
+        cpu: "400m"
+```
+
