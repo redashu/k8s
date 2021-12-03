@@ -17,11 +17,11 @@ Its free for everyone <br/>
 ### A LimitRange provides constraints that can
 
 <ol>
-	<li>Enforce minimum and maximum compute resources usage per Pod or Container in a namespace </li>
+	<li> Enforce minimum and maximum compute resources usage per Pod or Container in a namespace </li>
 	
-	<li>Enforce minimum and maximum storage request per PersistentVolumeClaim in a namespace </li>
-	<li>Enforce a ratio between request and limit for a resource in a namespace </li>
-	<li>Set default request/limit for compute resources in a namespace and automatically inject them to Containers at runtime </li>
+	<li> Enforce minimum and maximum storage request per PersistentVolumeClaim in a namespace </li>
+	<li> Enforce a ratio between request and limit for a resource in a namespace </li>
+	<li> Set default request/limit for compute resources in a namespace and automatically inject them to Containers at runtime </li>
 	
 </ol>
 
