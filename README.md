@@ -37,6 +37,17 @@ calico-node-xt2qw                                       1/1     Running   0     
 # Kubernetes Network policy 
 
 ## Its like firewall for your pods
+
+## Some points to remember 
+
+### There are 3 different ways to apply network policy in Pods 
+
+<ol>
+	<li> Using PodSelector -: Pod to Pod rules  </li>
+	<li> Namespace Selector 🕙  From some namespace  </li>
+	<li> Using IpBlock </li>
+</ol>
+
 ## There are two type ot network policy
 <ol>
 	<li> Ingress </li>
