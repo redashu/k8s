@@ -24,3 +24,27 @@ Its free for everyone <br/>
 
 ### Deploy ingress 
 
+```
+kubectl apply -f  nginx-ingress-controller.yaml 
+```
+
+### create self sign certificate --
+
+```
+openssl req -x509 -newkey rsa:4096  -keyout key.pem -out cert.pem -days 365 -nodes
+
+```
+
+### secret create and ingress rule 
+
+```
+kubectl create secrete tls secure-ingress --cert=cert.pe --key=key.pem 
+
+```
+
+### ingress rule 
+
+```
+kubectl apply -f secure-ingress-step2.yaml
+```
+
