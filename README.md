@@ -81,6 +81,7 @@ This component created  to access application from inside and outside cluster  <
 	<li> ClusterIP :- To access internal from nodes </li>  
 	<li> LoadBalancer  :- To balance load in case of multiPod apps </li>
 	<li> NodePort :-  To access application from outside </li>
+	<li> ExternalName</li>
 
 </ul>
 
@@ -122,4 +123,12 @@ kubernetes      ClusterIP   10.96.0.1      <none>        443/TCP        4d12h   
 my              NodePort    10.99.104.65   <none>        80:31050/TCP   26s     app=my
 servicefirst1   NodePort    10.99.68.91    <none>        80:30008/TCP   5m23s   name=myapp
 ```
+
+## Headless service 
+
+<img src="headsvc.png">
+
+### example 
+
+<img src="exp.png">
 
