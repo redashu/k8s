@@ -1,18 +1,22 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: dashboard
-  annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite ^(/dashboard)$ $1/ redirect;
-  namespace: kubernetes-dashboard
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /dashboard(/|$)(.*)
-        backend:
-          serviceName: kubernetes-dashboard
-          servicePort: 443
+ name: mydashboard-rule # name of rule ingress
+ namespace: kubernetes-dashboard # namespace where to apply 
+ annotations:
+  nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  nginx.ingress.kubernetes.io/rewrite-target: /$2
+  nginx.ingress.kubernetes.io/configuration-snippet: |
+   rewrite ^(/dashboard)$ $1/ redirect;
+spec: 
+ ingressClassName: nginx
+ rules: # to define rules by considering we are using external LB ip but No DNS
+ - http:
+    paths:
+    - path: /dashboard(/|$)(.*)
+      pathType: Prefix
+      backend: 
+       service: # service type cluster 
+        name: kubernetes-dashboard
+        port:
+         number: 443 
