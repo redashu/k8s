@@ -217,6 +217,12 @@ openssl  x509  -req  -in ec2user.csr  -CA  /etc/kubernetes/pki/ca.crt -CAkey /et
    kubectl config set-credentials ec2user --client-certificate=/home/ec2-user/.certs/ec2user.crt --client-key=/home/ec2-user/.certs/ec2user.key
 ```
 
+## Note above step will not add credential in current config file so to add it 
+	
+```
+kubectl config set-credentials ec2user --client-certificate=/home/ec2-user/.certs/ec2user.crt --client-key=/home/ec2-user/.certs/ec2user.key --embed-certs	
+```
+	
 <b> Checking  clustername  </b>
 ```
     kubectl config get-contexts
