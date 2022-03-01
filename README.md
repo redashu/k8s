@@ -201,6 +201,8 @@ here  <b> cluster.local  </b>  is the default domain name  which means now pods 
 ```
 
 <b> Create CSR  </b>
+
+### Note: CN=username == must be username 
 ```
    openssl req -new -key ec2user.key -out ec2user.csr -subj "/CN=ec2user/O=adhocnw"
 ```
