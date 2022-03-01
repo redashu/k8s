@@ -207,9 +207,33 @@ here  <b> cluster.local  </b>  is the default domain name  which means now pods 
    openssl req -new -key ec2user.key -out ec2user.csr -subj "/CN=ec2user/O=adhocnw"
 ```
 
-<b> Create CRT   </b>
+<b> Create CRT   </b> ## Not Prefered 
 ```
 openssl  x509  -req  -in ec2user.csr  -CA  /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key  -CAcreateserial -out ec2user.cst -days 1000
+```
+## use CSR api-resources in k8s and then approve it 
+### creating CSR in k8s 
+	
+### encode with base 64 
+	
+```
+cat ec2user.csr | base64 -w 0 >newdata.csr 
+	
+```
+### creating csrrequest 
+	
+```
+kubectl apply -f csreq.yaml 
+kubectl get csr 
+```
+### get csr request and sign it 
+	
+```
+kubectl certificate approve csrname 	
+```
+	
+```
+kubectl apply -f 	
 ```
 
 <b> setting credentials   </b>
