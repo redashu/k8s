@@ -140,4 +140,15 @@ kubectl create role pod-reader --verb=get --verb=list --verb=watch --resource=po
  curl https://kubernetes -k  -H "Authorization: Bearer token-of-svc-acc"
 ```
 
+### In max of the cases service account token doesn't require to be mounted inside the pod (default is mounting..)
+
+```
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-robot
+automountServiceAccountToken: false
+```
+
+
 
