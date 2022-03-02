@@ -154,6 +154,44 @@ automountServiceAccountToken: false
 
 <img src="apiworkflow.png">
 
+### API-request with respect to users
 
+<img src="users.png">
+
+### Restrictions
+
+<img src="restriction.png">
+
+### block anonymous users 
+
+```
+root@node155:/etc/kubernetes/manifests# pwd
+/etc/kubernetes/manifests
+root@node155:/etc/kubernetes/manifests# cat kube-apiserver.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 192.168.1.155:6443
+  creationTimestamp: null
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --advertise-address=192.168.1.155
+    - --allow-privileged=true
+    - --anonymous-auth=false # this line added 
+```
+
+### sending request to secure port of apiserver
+
+```
+curl https:/ip:6443 --cacert ca.crt --cert client.crt --key client.key 
+```
 
 
