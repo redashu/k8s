@@ -142,13 +142,13 @@ kubectl create role pod-reader --verb=get --verb=list --verb=watch --resource=po
 
 ### In max of the cases service account token doesn't require to be mounted inside the pod (default is mounting..)
 
-```
+'''
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: build-robot
 automountServiceAccountToken: false
-```
+'''
 
 
 
