@@ -150,5 +150,10 @@ metadata:
 automountServiceAccountToken: false
 '''
 
+## k8s api server FLow 
+
+<img src="apiworkflow.png">
+
+
 
 
