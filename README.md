@@ -135,4 +135,9 @@ kubectl create role pod-reader --verb=get --verb=list --verb=watch --resource=po
 
 ```
 
+### connecting from pod to apiserver
+```
+ curl https://kubernetes -k  -H "Authorization: Bearer token-of-svc-acc"
+```
+
 
