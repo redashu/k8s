@@ -236,33 +236,24 @@ Error from server (Forbidden): pods is forbidden: User "ashu" cannot list resour
 # Serviceaccounts 
 
 ### 
-## API based connection -- big picture 
 ### connecting from pod to apiserver
+
 ```
  curl https://kubernetes -k  -H "Authorization: Bearer token-of-svc-acc"
 ```
 
 ### In max of the cases service account token doesn't require to be mounted inside the pod (default is mounting..)
 
-'''
+```
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: build-robot
 automountServiceAccountToken: false
-'''
+```
 
-## k8s api server FLow 
 
-<img src="apiworkflow.png">
 
-### API-request with respect to users
-
-<img src="users.png">
-
-### Restrictions
-
-<img src="restriction.png">
 
 ### block anonymous users 
 
