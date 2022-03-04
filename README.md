@@ -198,6 +198,43 @@ users:
 kubectl  config set-credentials  ashu --client-key=ashu.key --client-certificate=ashu.crt --embed-certs  # to enject data without error 
 ```
 
+### setting and using context --
+
+```
+fire@node155:~$ kubectl config get-contexts 
+CURRENT   NAME       CLUSTER    AUTHINFO   NAMESPACE
+*         minikube   minikube   minikube   default
+fire@node155:~$ 
+fire@node155:~$ kubectl config set-context ashu --user=ashu --cluster=minikube  
+Context "ashu" created.
+fire@node155:~$ kubectl config get-contexts 
+CURRENT   NAME       CLUSTER    AUTHINFO   NAMESPACE
+          ashu       minikube   ashu       
+*         minikube   minikube   minikube   default
+
+```
+
+### checking resources from new user 
+
+```
+fire@node155:~$ kubectl config use-context ashu 
+Switched to context "ashu".
+fire@node155:~$ kubectl get  po 
+Error from server (Forbidden): pods is forbidden: User "ashu" cannot list resource "pods" in API group "" in the namespace "default"
+
+```
+
+### role and rolebindings 
+
+```
+ 96  kubectl -n test1 create role pod-control --verb=get,list  --resource=pod 
+   97  kubectl -n test1 create rolebinding ashubind1  --role=pod-control  --user=ashu
+   98  kubectl get roles -n test1
+   99  kubectl get rolebinding -n test1
+
+```
+
+## API based connection -- big picture 
 ### connecting from pod to apiserver
 ```
  curl https://kubernetes -k  -H "Authorization: Bearer token-of-svc-acc"
