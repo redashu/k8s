@@ -28,7 +28,6 @@ kubectl create role pod-reader --verb=get --verb=list --verb=watch --resource=po
 
 ## Bind role to service account 
 
-```
 
 ### connecting from pod to apiserver
 ```
