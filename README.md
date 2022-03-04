@@ -41,3 +41,33 @@ ETCDCTL_API=3 etcdctl --endpoints=https://127.0.0.1:2379 \
 
 ### Note: here about these certfication information will be given when you do etcd pod describe command 
 
+### connecting to etcd and checking health --
+
+```
+etcdctl endpoint health   --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/apiserver-etcd-client.crt  --key=/etc/kubernetes/pki/apiserver-etcd-client.key
+127.0.0.1:2379 is healthy: successfully committed proposal: took = 10.274018ms
+```
+
+### creating secret and checking from backend 
+
+```
+ kubectl create secret generic  sec1  --from-literal  x=hLlo
+secret/sec1 created
+[root@ip-172-31-90-99 ~]# 
+[root@ip-172-31-90-99 ~]# etcdctl get  /registry/secrets/default/sec1 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/apiserver-etcd-client.crt  --key=/etc/kubernetes/pki/apiserver-etcd-client.key
+/registry/secrets/default/sec1
+k8s
+
+
+v1Secret?
+?
+sec1default"*$2c37c282-3cc7-4567-b869-96a9d3db2cb52????z?^
+kubectl-createUpdatev????FieldsV1:*
+({"f:data":{".":{},"f:x":{}},"f:type":{}}B	
+xhLloOpaque"
+
+```
+### Note: as you can see above we can see the content so -- we need to encrypt this content 
+
+### EncrypintionConfiguration --- a new API resources in k8s 
+
