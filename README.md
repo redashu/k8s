@@ -111,10 +111,91 @@ LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ21UQ0NBWUVDQVFBd1ZERUxNQWtH
 ### copy above data and use in request.csr file 
 
 ```
+fire@node155:~$ kubectl apply -f request.yaml 
+certificatesigningrequest.certificates.k8s.io/ashu created
+fire@node155:~$ kube
+kubeadm  kubectl  kubelet  
+fire@node155:~$ kubectl get csr
+NAME        AGE    SIGNERNAME                                    REQUESTOR              REQUESTEDDURATION   CONDITION
+ashu        6s     kubernetes.io/kube-apiserver-client           minikube-user          24h                 Pending
+csr-zpx84   3m9s   kubernetes.io/kube-apiserver-client-kubelet   system:node:minikube   <none>              Approved,Issued
+fire@node155:~$ kubectl  certificate approve ashu
+certificatesigningrequest.certificates.k8s.io/ashu approved
+fire@node155:~$ kubectl get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR              REQUESTEDDURATION   CONDITION
+ashu        2m31s   kubernetes.io/kube-apiserver-client           minikube-user          24h                 Approved,Issued
 
 ```
 
+### Now time for generating CRT for 
 
+```
+ kubectl get csr  ashu -oyaml # in certificate section 
+```
+
+### 
+
+````
+fire@node155:~$ kubectl get csr  ashu -oyaml  |   grep -i certificate  |  tail -2
+  certificate: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURPakNDQWlLZ0F3SUJBZ0lSQU1aK0NtRWpIbTZxdm1YczRRL1VXOVF3RFFZSktvWklodmNOQVFFTEJRQXcKRlRFVE1CRUdBMVVFQXhNS2JXbHVhV3QxWW1WRFFUQWVGdzB5TWpBek1EUXhNVEV6TXpKYUZ3MHlNakF6TURVeApNVEV6TXpKYU1GUXhDekFKQmdOVkJBWVRBa0ZWTVJNd0VRWURWUVFJRXdwVGIyMWxMVk4wWVhSbE1TRXdId1lEClZRUUtFeGhKYm5SbGNtNWxkQ0JYYVdSbmFYUnpJRkIwZVNCTWRHUXhEVEFMQmdOVkJBTVRCR0Z6YUhVd2dnRWkKTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFDMmdValBBc1BzY3lvT2RVRU80YU92YVRKKwpkRm8wak9kd21iUzNLNmh5ZXV6cmpHWnlOeTdqN3ZyRll3UFVDZUo3Vm95Z3VScTlpdjc4aXI4SmZkS3FQdnBXClBaaUQ2S0R1WW1zd2VRc0Q3bWM0MkZpMlBSZXVucXFUWWMvMlFXTHBneU1WU0NXQ0xwcVJibklZMDVIdXNja2wKc1MweldHK3RHTUFDZEJjaVFIaUZHNnN0aEdSYWNjM0hRSFhleUpzNVg3dU9hWWZYYzNCbVFNMGN5TDRYM05GbApYM09YeGxXaHlRTWxaOFh4VnZCS0VMNTJNbEtRM0lLYno4OWpNeFNIa2dGR3BVU2NsZ28yYnRDY09YSzNyYVVYClVadmJBMTBadi9YK3hoUlZoTVJMMWpQU1B5bkVISk82eXlpRzlIemFXWjhtZHlyWGt4OTF3Y0E0eVl6aEFnTUIKQUFHalJqQkVNQk1HQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01DTUF3R0ExVWRFd0VCL3dRQ01BQXdId1lEVlIwagpCQmd3Rm9BVXFLMUF
+
+```
+### ashu.crt 
+
+```
+ echo "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURPakNDQWlLZ0F3SUJBZ0lSQU1aK0NtRWpIbTZxdm1YczRRL1VXOVF3RFFZSktvWklodmNOQVFFTEJRQXcKRlRFVE1CRUdBMVVFQXhNS2JXbHVhV3QxWW1WRFFUQWVGdzB5TWpBek1EUXhNVEV6TXpKYUZ3MHlNakF6TURVeApNVEV6TXpKYU1GUXhDekFKQmdOVkJBWVRBa0ZWTVJNd0VRWURWUVFJRXdwVGIyMWxMVk4wWVhSbE1TRXdId1lEClZRUUtFeGhKYm5SbGNtNWxkQ0JYYVdSbmFYUnpJRkIwZVNCTWRHUXhEVEFMQmdOVkJBTVRCR0Z6YUhVd2dnRWkKTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFDMmdValBBc1BzY3lvT2RVRU80YU92YVRKKwpkRm8wak9kd21iUzNLNmh5ZXV6cmpHWnlOeTdqN3ZyRll3UFVDZUo3Vm95Z3VScTlpdjc4aXI4SmZkS3FQdnBXClBaaUQ2S0R1WW1zd2VRc0Q3bWM0MkZpMlBSZXVucXFUWWMvMlFXTHBneU1WU0NXQ0xwcVJibklZMDVIdXNja2wKc1MweldHK3RHTUFDZEJjaVFIaUZHNnN0aEdSYWNjM0hRSFhleUpzNVg3dU9hWWZYYzNCbVFNMGN5TDRYM05GbApYM09YeGxXaHlRTWxaOFh4VnZCS0VMNTJNbEtRM0lLYno4OWpNeFNIa2dGR3BVU2NsZ28yYnRDY09YSzNyYVVYClVadmJBMTBadi9YK3hoUlZoTVJMMWpQU1B5bkVISk82eXlpRzlIemFXWjhtZHlyWGt4OTF3Y0E0eVl6aEFnTUIKQUFHalJqQkVNQk1HQTFVZEpRUU1NQW9HQ0NzR0FRVUZCd01DTUF3R0ExVWRFd0VCL3dRQ01BQXdId1lEVlIwagpCQmd3Rm9BVXFLMUFtM29Xd2lnVWFrWUxVMW1WTGxFaUl1NHdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBR25CClcrUC9DVUpLYW5wQzlPSko0ZThSWi9zeHFhWWd3bU0vVnR2VDRqeGg4M1QxSWZiUHBTU2tPTFFPckx2Q0JFTW0KdmpHZzA0WSs0VjBmT1dMK095RFpJVThPbmhlTGQrSlBqYmtnck9yenZmU3VaUXEzMDFuWERHdlZVVWRnQ2xxVwpMcUFOeFhiZ0JTTHVpYWYyVktPTDMzc0YzYU51MVhKVGQzc0hISSs5VnV0Z2lJcXpQZ1VwZnRmT3hRNVN4ZEJ5CnVWbDh4U0RIdmJBaFZ3SGFpc0FjcThCc21lTTVDTTVWZmxoYnNNMlZIUHZTUitqbHFtbEFkVEk5c3crMmVjME8KRDEvWldIV1M1cUZhbU9tK1ZVN1ZuNFZ6dnpHclJXNERrR3A5b2dEam4wamVlU0NRNTBrNUsxNXdtbDFwZVFDeApmRGxkRXBTbG9PUnRacDFMcVJBPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="  |  base64 -d  >ashu.crt 
+```
+
+### set credentials
+
+```
+ kubectl  config set-credentials  ashu --client-key=ashu.key --client-certificate=ashu.crt 
+User "ashu" set.
+
+
+fire@node155:~$ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /home/fire/.minikube/ca.crt
+    extensions:
+    - extension:
+        last-update: Fri, 04 Mar 2022 03:13:04 PST
+        provider: minikube.sigs.k8s.io
+        version: v1.25.2
+      name: cluster_info
+    server: https://192.168.49.2:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    extensions:
+    - extension:
+        last-update: Fri, 04 Mar 2022 03:13:04 PST
+        provider: minikube.sigs.k8s.io
+        version: v1.25.2
+      name: context_info
+    namespace: default
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: ashu
+  user:
+    client-certificate: /home/fire/ashu.crt
+    client-key: /home/fire/ashu.key
+- name: minikube
+  user:
+    client-certificate: /home/fire/.minikube/profiles/minikube/client.crt
+    client-key: /home/fire/.minikube/profiles/minikube/client.key
+```
+
+### 
+```
+kubectl  config set-credentials  ashu --client-key=ashu.key --client-certificate=ashu.crt --embed-certs  # to enject data without error 
+```
 
 ### connecting from pod to apiserver
 ```
