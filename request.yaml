@@ -1,0 +1,12 @@
+ashu.csr  ashu.key  request.yaml
+root@node155:/users# cat request.yaml 
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: ashu
+spec:
+   # base64 encoded data of ashu.csr 
+  request: LS0tLS1CRUdJTiBDRVJUSUZJQ
+  expirationSeconds: 86400  # one day (optional field)
+  usages:
+  - client auth
