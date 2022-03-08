@@ -11,3 +11,8 @@ Its free for everyone <br/>
 </ul>
 
 ## understanding upgradations --
+
+### version -- 
+
+<img src="version.png">
+
