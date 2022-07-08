@@ -12,7 +12,7 @@ Its free for everyone <br/>
 
 ## CRD --CUstom resources Definitions 
 
-### from k8s 1.7 onwards CRDs are there
+### from k8s 1.17 onwards CRDs are there
 
 '''
 Custom resources
