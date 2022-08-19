@@ -102,6 +102,15 @@ kubectl apply -f calico.yaml
 
 ```
 
+### Now 3.20 installation has been changed
+
+```
+ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.0/manifests/tigera-operator.yaml
+ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.0/manifests/custom-resources.yaml
+ kubectl get pods -n calico-system
+ 
+```
+
 # INstalling calico in minikube cluster..
 
 ```
