@@ -90,6 +90,43 @@ version.BuildInfo{Version:"v3.5.2", GitCommit:"167aac70832d3a384f65f9745335e9fb4
 
 ```
 
+## Some basic commands to get started 
+
+### THese days since helm version 3 in picture by default Helm artifacts is "https://artifacthub.io/"
+
+### searching most popular charts from different artifacts hub Repo 
+
+```
+fire@ashutoshhs-MacBook-Air ~ % helm search hub  
+URL                                               	CHART VERSION                                     	APP VERSION                                       	DESCRIPTION                                       
+https://artifacthub.io/packages/helm/gabibbo97/...	0.1.0                                             	fedora-32                                         	389 Directory Server                              
+https://artifacthub.io/packages/helm/four-allpo...	18.3.9                                            	3.10.8                                            	A Helm chart for 4ALLPORTAL version 3.9.0 and up  
+https://artifacthub.io/packages/helm/aad-pod-id...	4.1.13                                            	1.8.12                                            	Deploy components for aad-pod-identity            
+https://artifacthub.io/packages/helm/smo-helm-c...	6.0.0                                             	                                                  	ONAP Application Authorization Framework          
+https://artifacthub.io/packages/helm/smo-helm-c...	6.0.0                                             	                                                  	ONAP Active and Available Inventory               
+https://artifacthub.io/packages/helm/statcan/aa...	0.1.5                                             	1.0                                               	A Helm chart for AAW Financial Data Reconciliation
+https://artifacthub.io/packages/helm/arhatdev/a...	0.1.0                                             	latest                                            	Network Manager Living at Edge                    
+
+```
+
+### searching a particular chat in HUb 
+
+```
+fire@ashutoshhs-MacBook-Air ~ % helm search hub wordpress
+URL                                               	CHART VERSION 	APP VERSION        	DESCRIPTION                                       
+https://artifacthub.io/packages/helm/kube-wordp...	0.1.0         	1.1                	this is my wordpress package                      
+https://artifacthub.io/packages/helm/bitnami/wo...	15.2.2        	6.0.2              	WordPress is the world's most popular blogging ...
+https://artifacthub.io/packages/helm/bitnami-ak...	15.2.0        	6.0.2              	WordPress is the world's most popular blogging ...
+https://artifacthub.io/packages/helm/shubham-wo...	0.1.0         	1.16.0             	A Helm chart for Kubernetes                       
+https://artifacthub.io/packages/helm/camptocamp...	0.6.10        	4.8.1              	Web publishing platform for building blogs and ...
+https://artifacthub.io/packages/helm/risserlabs...	0.0.1         	latest             	open source software you can use to create a be...
+https://artifacthub.io/packages/helm/devops/wor...	0.9.0         	1.16.0             	Wordpress helm chart                              
+https://artifacthub.io/packages/helm/riftbit/wo...	12.1.16       	5.8.1              	Web publishing platform for building blogs and ...
+https://artifacthub.io/packages/helm/groundhog2...	0.6.4         	6.0.2-apache       	A Helm chart for Wordpress on Kubernetes          
+https://artifacthub.io/packages/helm/sikalabs/w...	0.2.0         	                   	Simple Wordpress                                  
+https://artifacthub.io/packages/helm/homeenter
+```
+
 ## helm need repo to deploy application 
 
 ### HElm listing repo 
@@ -401,7 +438,4 @@ helm uninstall lnbchart
 
 ### dynamic values using value 
 
-```
 
-
-```
