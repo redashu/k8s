@@ -434,6 +434,17 @@ version: 0.1.0
 helm uninstall lnbchart
 ```
 
+### you can create package to your chart to share with anyone 
+
+```
+fire@ashutoshhs-MacBook-Air hello % ls
+mychart
+fire@ashutoshhs-MacBook-Air hello % helm package ./mychart 
+Successfully packaged chart and saved it to: /tmp/hello/mychart-0.1.0.tgz
+fire@ashutoshhs-MacBook-Air hello % ls 
+mychart			mychart-0.1.0.tgz
+```
+
 ## Helm advanced 
 
 ### dynamic values using value 
