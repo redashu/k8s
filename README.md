@@ -346,7 +346,7 @@ Chart.lock         Chart.yaml         README.md          charts             ci  
 ```
  helm create  <chartname>
  ===
-  helm create  mychart
+  helm create  devops
 ```
 
 ### Step 2 :-  checking directory structure 
@@ -387,10 +387,15 @@ helm template  <chart_name>  <chart_directory_name>
 helm template  devops  devops 
 ```
 
+### Step 6 : check dry-run 
+
+```
+ helm install xyz --dry-run --debug ./devops/
+```
 ## Deployment using chart 
 
 ```
-❯ helm install mychart  mychart
+❯ helm install mychart  ./devops
 NAME: mychart
 LAST DEPLOYED: Sat Sep  4 13:11:43 2021
 NAMESPACE: ashu-space
