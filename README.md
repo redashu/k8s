@@ -379,15 +379,24 @@ rm -rf tests
 ### step 4 copy your  YAML data to templates directory 
 
 
-### step 5 : check helm charts structure is correct or not 
+### step 5 : check original values of place holder 
 
 ```
-helm template  <chart_name>  <chart_directory_name>
+helm template   <chart_directory_name>
 =====
-helm template  devops  devops 
+helm template   devops 
 ```
+### step 6 check syntax error in helm chart 
 
-### Step 6 : check dry-run 
+```
+baby@babykool:~/Documents/helm-charts$ helm lint devops/
+==> Linting devops/
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+
+```
+### Step 7 : check dry-run 
 
 ```
  helm install xyz --dry-run --debug ./devops/
@@ -450,8 +459,5 @@ fire@ashutoshhs-MacBook-Air hello % ls
 mychart			mychart-0.1.0.tgz
 ```
 
-## Helm advanced 
-
-### dynamic values using value 
 
 
