@@ -92,7 +92,7 @@ X
 
 ##  Now apply calico project 
 ```
-kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
 ```
 ## Or Download 3.16 latest version as now october 2020 
 
