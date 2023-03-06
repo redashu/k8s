@@ -94,10 +94,10 @@ X
 ```
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
 ```
-## Or Download 3.16 latest version as now october 2020 
+## Or Download 3.25.0 latest version as now october 2020 
 
 ```
-wget https://docs.projectcalico.org/manifests/calico.yaml
+wgetcurl https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml 
 kubectl apply -f calico.yaml
 
 ```
