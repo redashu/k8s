@@ -18,7 +18,9 @@ kube-public       Active   47h
 kube-system       Active   47h
 ```
 
-### installing istioctl in k8s client machine 
+## Installation :- there are various methods to install istio in k8s 
+
+### installing istioctl in k8s client machine  -- Method 1 
 
 ```
  curl -L https://istio.io/downloadIstio | sh -
@@ -85,4 +87,31 @@ horizontalpodautoscaler.autoscaling/istiod                 Deployment/istiod    
 [root@ip-172-31-22-131 ~]# 
 
 ```
+
+## checking few more details 
+
+### version 
+
+```
+[root@ip-172-31-22-131 ~]# istioctl version 
+client version: 1.17.1
+control plane version: 1.17.1
+data plane version: 1.17.1 (1 proxies)
+```
+
+### verify installation 
+
+```
+[root@ip-172-31-22-131 ~]# istioctl verify-install 
+1 Istio control planes detected, checking --revision "default" only
+✔ HorizontalPodAutoscaler: istio-ingressgateway.istio-system checked successfully
+✔ Deployment: istio-ingressgateway.istio-system checked successfully
+✔ PodDisruptionBudget: istio-ingressgateway.istio-system checked successfully
+✔ Role: istio-ingressgateway-sds.istio-system checked successfully
+
+```
+
+
+
+
 
