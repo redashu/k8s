@@ -37,4 +37,26 @@
 
 <img src="retry.png">
 
+## Circuit breaking 
+
+### problem 
+
+<p> If a particular micro service is not responding then the dependent micro service will be having a collection of request </p>
+<p> which means requests will be pilled up </p>
+
+### Solution 
+
+<p> if we mark those request to be servered or consumed then this is called circuit breaking </p>
+<p> circuit breaker are configured in Destination rules </p>
+
+<img src="cr.png">
+
+### Demo 
+
+<img src="crd.png">
+
+
+
+
+
 
