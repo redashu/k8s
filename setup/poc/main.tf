@@ -1,6 +1,6 @@
 provider "aws" {
-    access_key = "AKIA25YZWFYD4T5DIWRR"
-    secret_key = "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"
+    access_key = ""
+    secret_key = ""
     region = "ap-south-1" # region code of mumbai 
   
 }
