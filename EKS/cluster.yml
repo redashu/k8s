@@ -5,6 +5,7 @@ metadata:
   name: basic-cluster
   region: eu-north-1
 
+version: "1.29"
 nodeGroups:
   - name: ng-1
     instanceType: m5.large
