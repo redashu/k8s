@@ -18,3 +18,10 @@ eksctl get clusters --region nameof-region
 eksctl delete cluster --name jpmc-cluster --region us-east-1  --force
 ```
 
+## Note: you may get pod eviction message while deleting 
+
+### solution 
+
+```
+eksctl delete cluster -f cluster.yaml --disable-nodegroup-eviction
+```
