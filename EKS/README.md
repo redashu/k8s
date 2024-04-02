@@ -12,6 +12,13 @@ eksctl get clusters
 eksctl get clusters --region nameof-region
 ```
 
+## getting kubeconfig file 
+
+```
+eksctl utils write-kubeconfig --cluster=jpmc-cluster --kubeconfig=~/.kube/config
+```
+
+
 ### delete clustering 
 
 ```
