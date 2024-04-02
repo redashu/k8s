@@ -25,3 +25,15 @@ eksctl delete cluster --name jpmc-cluster --region us-east-1  --force
 ```
 eksctl delete cluster -f cluster.yaml --disable-nodegroup-eviction
 ```
+
+### scaling nodegroup -- autoscale 
+
+```
+eksctl scale nodegroup --cluster jpmc-cluster  --name nodepool-1 --nodes-min 1 --nodes-max 4 --nodes 2
+```
+
+### checking status
+
+```
+eksctl get nodegroup --cluster jpmc-cluster --region us-east-1 --name nodepool-1
+```
