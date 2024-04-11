@@ -1,46 +1,15 @@
-### Creating cluster 
+## Steps to Setup EKS cluster using web console 
 
-```
-eksctl create cluster -f cluster.yaml
+<ol>
+    <li> Create Role for EKS control plane </li>
+    <li> Create VPC for EKS  </li>
+    <li> Create Creating Control plane  </li>
+    <li> Verify accessing control plane  </li>
+    <li> Create Role for EKS Node Group  </li>
+    
+    <li> Create nodegroup under control plane </li>
+<ol>
 
-```
+### VPC tempalte URL 
 
-### listing cluster info 
-
-```
-eksctl get clusters
-eksctl get clusters --region nameof-region
-```
-
-## getting kubeconfig file 
-
-```
-eksctl utils write-kubeconfig --cluster=jpmc-cluster --kubeconfig=~/.kube/config
-```
-
-
-### delete clustering 
-
-```
-eksctl delete cluster --name jpmc-cluster --region us-east-1  --force
-```
-
-## Note: you may get pod eviction message while deleting 
-
-### solution 
-
-```
-eksctl delete cluster -f cluster.yaml --disable-nodegroup-eviction
-```
-
-### scaling nodegroup -- autoscale 
-
-```
-eksctl scale nodegroup --cluster jpmc-cluster  --name nodepool-1 --nodes-min 1 --nodes-max 4 --nodes 2
-```
-
-### checking status
-
-```
-eksctl get nodegroup --cluster jpmc-cluster --region us-east-1 --name nodepool-1
-```
+(click_here)[https://s3.us-west-2.amazonaws.com/amazon-eks/cloudformation/2020-10-29/amazon-eks-vpc-private-subnets.yaml]
