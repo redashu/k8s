@@ -67,3 +67,18 @@ eksctl scale nodegroup --cluster cluster-2 --name ng-eb58d3d1 --nodes=3
 
 ```
 
+## How to add fargate profile 
+
+```
+eksctl create fargateprofile --cluster=cluster-2 --name=ashu-fargate --namespace=default 
+```
+
+## How to list fargate profile 
+
+```
+eksctl get fargateprofile --cluster cluster-2
+NAME		SELECTOR_NAMESPACE	SELECTOR_LABELS	POD_EXECUTION_ROLE_ARN										SUBNETS			TAGS	STATUS
+ashu-fargate	default			<none>		arn:aws:iam::751136288263:role/eksctl-cluster-2-fargate-FargatePodExecutionRole-RSi10W7H2WpN	subnet-01edfd9e00db588d3,subnet-0d03d8bb7c8e54c6c	<none>	ACTIVE
+➜  ~ 
+
+```
