@@ -1,0 +1,61 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: delvex-cluster
+  region: us-east-1
+  version: "1.29"
+  # addons:
+  # - name: vpc-cni
+  # - name: coredns 
+  # - name: kube-proxy 
+
+nodeGroups:
+  - name: ec2-nodegroup1
+    instanceType: t2.small
+    desiredCapacity: 1
+    volumeSize: 80
+    volumeType: gp2
+    minSize: 1
+    maxSize: 8
+    # ami: ami-05ecac759c81e0b0c # ami-ID 
+    # amiFamily: AmazonLinux2
+    ssh:
+      allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+        ebs: true
+        fsx: true
+        efs: true 
+
+  # - name: ng-2
+  #   instanceType: t2.small
+  #   desiredCapacity: 1
+  #   volumeSize: 100
+  #   ssh:
+  #     allow: true 
+  #     publicKeyPath: ~/.ssh/ec2_id_rsa.pub
+
+fargateProfiles:
+  - name: ashu-profile1
+    selectors:
+      # All workloads in the "default" Kubernetes namespace will be
+      # scheduled onto Fargate:
+      - namespace: default
+      # All workloads in the "kube-system" Kubernetes namespace will be
+      # scheduled onto Fargate:
+      - namespace: kube-system
+  - name: fp-dev
+    selectors:
+      # All workloads in the "dev" Kubernetes namespace matching the following
+      # label selectors will be scheduled onto Fargate:
+      - namespace: dev
+        labels:
+          env: dev
+          checks: passed
+    tags:
+      env: dev
+      name: fp-dev
+
+availabilityZones: ['us-east-1a', 'us-east-1b', 'us-east-1c', 'us-east-1d']

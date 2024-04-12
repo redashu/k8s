@@ -82,3 +82,43 @@ ashu-fargate	default			<none>		arn:aws:iam::751136288263:role/eksctl-cluster-2-f
 ➜  ~ 
 
 ```
+
+### Deleting fargate profile
+
+```
+eksctl  delete  fargateprofile --name ashu-fargate --cluster cluster-2
+```
+
+### Deleting Nodegroup 
+
+```
+eksctl delete nodegroup --name ng-eb58d3d1  --cluster cluster-2
+```
+
+### Deleting cluster 
+
+```
+eksctl delete cluster --name cluster-2
+
+2024-04-12 11:08:42 [ℹ]  deleting EKS cluster "cluster-2"
+2024-04-12 11:08:45 [ℹ]  deleted 0 Fargate profile(s)
+2024-04-12 11:08:48 [ℹ]  cleaning up AWS load balancers created by Kubernetes objects of Kind Service or Ingress
+2024-04-12 11:08:54 [ℹ]  1 task: { delete cluster control plane "cluster-2" [async] }
+2024-04-12 11:08:55 [ℹ]  will delete stack "eksctl-cluster-2-cluster"
+2024-04-12 11:08:56 [✔]  all cluster resources were deleted 
+```
+
+## Creating Cluster using cluster.yaml file 
+
+```
+ eksctl git:(master) ✗ eksctl create cluster -f cluster.yaml    
+ 
+                      
+2024-04-12 11:27:58 [ℹ]  eksctl version 0.175.0-dev+5b28c1794.2024-03-22T12:39:36Z
+2024-04-12 11:27:58 [ℹ]  using region us-east-1
+2024-04-12 11:28:00 [ℹ]  subnets for us-east-1a - public:192.168.0.0/19 private:192.168.128.0/19
+2024-04-12 11:28:00 [ℹ]  subnets for us-east-1b - public:192.168.32.0/19 private:192.168.160.0/19
+2024-04-12 11:28:00 [ℹ]  subnets for us-east-1c - public:192.168.64.0/19 private:192.168.192.0/19
+2024-04-12 11:28:00 [ℹ]  subnets for us-east-1d - public:192.168.96.0/19 private:192.168.224.0/19
+
+```
