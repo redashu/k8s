@@ -1,0 +1,2 @@
+EKS/setup/eksctl/.kube*
+EKS/setup/*/.kube*
