@@ -60,3 +60,28 @@ echo "parameters:
 kubectl apply -f manifests/
 
 ```
+
+## EFS on EKS 
+
+### Step --1 >>
+
+```
+eksctl utils associate-iam-oidc-provider --region=us-east-1 --cluster=jpmc-cluster --approve
+```
+
+### Step 2 --
+
+```
+eksctl create iamserviceaccount --name efs-csi-controller-sa  --namespace kube-system  --cluster jpmc-cluster --role-name AmazonEKS_EFS_CSI_DriverRole   --role-only --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy    --approve
+```
+
+### step 3 -- 
+
+```
+eksctl create addon --cluster jpmc-cluster --name aws-efs-csi-driver --version latest   --service-account-role-arn arn:aws:iam::751136288263:role/AmazonEKS_EFS_CSI_DriverRole  --force
+```
+
+## Note: 
+
+### make sure to check security group of EFS and allow 2049 
+### checking process of EFS is same as EBS
