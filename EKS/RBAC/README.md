@@ -137,7 +137,7 @@ data:
     - userarn: arn:aws:iam::751136288263:user/ashu-dev
       username: ashu-dev
       groups:
-      - system:masters
+      - system:masters # here we can put k8s role names also
 kind: ConfigMap
 
 ```
